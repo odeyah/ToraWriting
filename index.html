@@ -1,0 +1,1453 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>כתר המלך | ספר תורה לעילוי נשמה</title>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Noto+Serif+Hebrew:wght@300;400;600;700&family=Heebo:wght@300;400;500;600&display=swap"
+			rel="stylesheet"
+		/>
+		<script>
+			var currentLang = 'he';
+
+			function setLang(lang) {
+				currentLang = lang;
+				var isHe = lang === 'he';
+
+				document.documentElement.lang = lang;
+				document.documentElement.dir = isHe ? 'rtl' : 'ltr';
+				document.title = isHe ? 'כתר המלך | ספר תורה לעילוי נשמה' : 'Keter HaMelech | Torah Scroll Memorial';
+
+				document.querySelectorAll('.lang-btn').forEach(function (b) {
+					b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+				});
+
+				document.querySelectorAll('[data-he]').forEach(function (el) {
+					var val = isHe ? el.dataset.he : el.dataset.en;
+					if (val !== undefined) el.textContent = val;
+				});
+
+				var waBtn = document.getElementById('wa-btn');
+				if (waBtn) waBtn.href = isHe ? waBtn.dataset.hrefHe : waBtn.dataset.hrefEn;
+
+				var footerLinks = document.querySelector('footer p:first-child');
+				if (footerLinks) {
+					footerLinks.innerHTML = isHe
+						? 'כתר המלך · <a href="tel:+972587707555">058-770-7555</a> · <a href="mailto:AS0548407555@gmail.com">AS0548407555@gmail.com</a>'
+						: 'Keter HaMelech · <a href="tel:+972587707555">058-770-7555</a> · <a href="mailto:AS0548407555@gmail.com">AS0548407555@gmail.com</a>';
+				}
+			}
+
+			function previewImg(input, zoneId) {
+				var zone = document.getElementById(zoneId);
+				if (!input.files || !input.files[0]) return;
+				var reader = new FileReader();
+				reader.onload = function (e) {
+					zone.querySelectorAll('.zone-icon,.zone-text,.zone-btn,.ph-icon,.ph-label,.ph-btn').forEach(function (el) {
+						el.style.display = 'none';
+					});
+					var img = zone.querySelector('img');
+					if (!img) {
+						img = document.createElement('img');
+						img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;';
+						zone.appendChild(img);
+					}
+					img.src = e.target.result;
+					img.style.display = 'block';
+				};
+				reader.readAsDataURL(input.files[0]);
+			}
+		</script>
+		<style>
+			:root {
+				--ink: #1c140a;
+				--ink-mid: #2e1f0d;
+				--brown: #5c3d1e;
+				--gold: #b8872a;
+				--gold2: #d4a040; /* קצת בהיר יותר, לhover */
+				--gold-pale: #f0d88a;
+				--parchment: #f7f0dc;
+				--parch2: #efe5c4;
+				--parch3: #e5d8ad;
+				--cream: #fbf8f0;
+				--text: #2e1f0d;
+				--text-mid: #5c3d1e;
+				--text-light: #8a6640;
+			}
+
+			*,
+			*::before,
+			*::after {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			html {
+				scroll-behavior: smooth;
+			}
+
+			body {
+				font-family: 'Heebo', sans-serif;
+				background: var(--cream);
+				color: var(--text);
+				direction: rtl;
+				overflow-x: hidden;
+				text-align: center;
+			}
+
+			/* noise grain */
+			body::before {
+				content: '';
+				position: fixed;
+				inset: 0;
+				background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+				pointer-events: none;
+				z-index: 9999;
+				mix-blend-mode: multiply;
+			}
+
+			/* hero */
+			.hero {
+				min-height: 100vh;
+				background: var(--ink);
+				position: relative;
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				align-items: center;
+				overflow: hidden;
+			}
+
+			.hero::after {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background: radial-gradient(ellipse 80% 70% at 30% 50%, rgba(180, 110, 30, 0.13) 0%, transparent 65%);
+				pointer-events: none;
+			}
+
+			.hero-bg-letter {
+				position: absolute;
+				font-family: 'Frank Ruhl Libre', serif;
+				font-size: clamp(200px, 32vw, 400px);
+				font-weight: 900;
+				color: rgba(180, 110, 30, 0.05);
+				right: -2%;
+				top: 50%;
+				transform: translateY(-50%);
+				line-height: 1;
+				pointer-events: none;
+				user-select: none;
+			}
+
+			.hero-left {
+				padding: 80px 48px 80px 60px;
+				position: relative;
+				z-index: 2;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+
+			.hero-eyebrow {
+				display: inline-flex;
+				align-items: center;
+				gap: 8px;
+				color: var(--gold2);
+				font-size: 12px;
+				font-weight: 500;
+				letter-spacing: 0.18em;
+				text-transform: uppercase;
+				margin-bottom: 28px;
+				opacity: 0;
+				animation: fadeUp 0.7s ease 0.1s forwards;
+			}
+
+			.hero-eyebrow::before,
+			.hero-eyebrow::after {
+				content: '';
+				display: block;
+				width: 28px;
+				height: 1px;
+				background: var(--gold);
+				opacity: 0.6;
+			}
+
+			.hero h1 {
+				font-family: 'Noto Serif Hebrew', serif;
+				font-size: clamp(34px, 5vw, 64px);
+				font-weight: 700;
+				color: #fff;
+				line-height: 1.25;
+				margin-bottom: 24px;
+				opacity: 0;
+				animation: fadeUp 0.8s ease 0.25s forwards;
+			}
+
+			.hero h1 em {
+				font-style: normal;
+				color: var(--gold2);
+				display: block;
+			}
+
+			.hero-desc {
+				font-size: clamp(15px, 1.7vw, 17px);
+				color: rgba(255, 255, 255, 0.55);
+				line-height: 1.9;
+				max-width: 420px;
+				margin-bottom: 40px;
+				font-weight: 300;
+				opacity: 0;
+				animation: fadeUp 0.8s ease 0.4s forwards;
+				text-align: center;
+			}
+
+			.hero-actions {
+				display: flex;
+				flex-direction: column;
+				gap: 16px;
+				align-items: flex-start;
+				opacity: 0;
+				animation: fadeUp 0.8s ease 0.55s forwards;
+			}
+
+			.btn-gold {
+				display: inline-block;
+				background: var(--gold);
+				color: var(--ink);
+				font-family: 'Heebo', sans-serif;
+				font-weight: 700;
+				font-size: 16px;
+				padding: 14px 34px;
+				border-radius: 4px;
+				text-decoration: none;
+				transition:
+					background 0.2s,
+					transform 0.2s;
+			}
+			.btn-gold:hover {
+				background: var(--gold2);
+				transform: translateY(-2px);
+			}
+
+			.btn-ghost {
+				color: rgba(255, 255, 255, 0.45);
+				font-size: 14px;
+				text-decoration: none;
+				border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+				padding-bottom: 2px;
+				transition: color 0.2s;
+			}
+			.btn-ghost:hover {
+				color: rgba(255, 255, 255, 0.8);
+			}
+
+			/* hero image right */
+			.hero-right {
+				height: 100%;
+				min-height: 100vh;
+				position: relative;
+				overflow: hidden;
+			}
+
+			.hero-img-zone {
+				width: 100%;
+				height: 100%;
+				min-height: 100vh;
+				background: #160e04;
+				border-right: 1px solid rgba(180, 120, 40, 0.1);
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				gap: 14px;
+				cursor: pointer;
+				position: relative;
+				transition: background 0.25s;
+			}
+
+			.hero-img-zone:hover {
+				background: #1c1306;
+			}
+
+			.hero-img-zone input[type='file'] {
+				position: absolute;
+				inset: 0;
+				opacity: 0;
+				cursor: pointer;
+			}
+
+			.hero-img-zone .ph-icon {
+				font-size: 44px;
+				opacity: 0.3;
+			}
+			.hero-img-zone .ph-label {
+				font-size: 13px;
+				color: rgba(180, 120, 40, 0.45);
+				text-align: center;
+				line-height: 1.7;
+				max-width: 200px;
+			}
+			.hero-img-zone .ph-btn {
+				font-size: 11px;
+				color: var(--gold);
+				border: 1px solid rgba(184, 135, 42, 0.35);
+				padding: 5px 14px;
+				border-radius: 20px;
+			}
+
+			@keyframes fadeUp {
+				from {
+					opacity: 0;
+					transform: translateY(16px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+
+			@media (max-width: 780px) {
+				.hero {
+					grid-template-columns: 1fr;
+				}
+				.hero-right {
+					display: none;
+				}
+				.hero-left {
+					padding: 80px 24px 64px;
+				}
+				.hero-actions {
+					align-items: stretch;
+				}
+				.btn-gold {
+					text-align: center;
+				}
+			}
+
+			/* ── PASUK ── */
+			.pasuk-strip {
+				background: var(--parch2);
+				border-top: 2px solid var(--parch3);
+				border-bottom: 2px solid var(--parch3);
+				padding: 38px 24px;
+				text-align: center;
+			}
+
+			.pasuk-text {
+				font-family: 'Noto Serif Hebrew', serif;
+				font-size: clamp(18px, 3vw, 28px);
+				font-weight: 400;
+				color: var(--brown);
+				line-height: 1.8;
+			}
+
+			.pasuk-source {
+				margin-top: 8px;
+				font-size: 13px;
+				color: var(--text-light);
+			}
+
+			/* כותרות משותפות לכל הסקשנים */
+			.section-label {
+				display: block;
+				font-size: 11px;
+				font-weight: 600;
+				letter-spacing: 0.22em;
+				color: var(--gold);
+				text-transform: uppercase;
+				margin-bottom: 10px;
+			}
+
+			.section-heading {
+				font-family: 'Noto Serif Hebrew', serif;
+				font-size: clamp(24px, 4vw, 42px);
+				font-weight: 700;
+				color: var(--ink);
+				line-height: 1.25;
+				margin-bottom: 12px;
+			}
+
+			.section-body {
+				font-size: 16px;
+				color: var(--text-light);
+				line-height: 1.85;
+				font-weight: 300;
+			}
+
+			/* סקשן ספרי התורה */
+			.scrolls-section {
+				background: var(--cream);
+				padding: 80px 24px 72px;
+			}
+
+			.scrolls-inner {
+				max-width: 1060px;
+				margin: 0 auto;
+			}
+
+			.scrolls-header {
+				text-align: center;
+				margin-bottom: 52px;
+			}
+
+			.scrolls-header .section-body {
+				max-width: 520px;
+				margin: 0 auto;
+			}
+
+			.scrolls-grid {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 28px;
+			}
+
+			@media (max-width: 600px) {
+				.scrolls-grid {
+					grid-template-columns: 1fr;
+				}
+			}
+
+			.scroll-card {
+				border-radius: 10px;
+				overflow: hidden;
+				border: 1px solid var(--parch3);
+				background: var(--parchment);
+				box-shadow: 0 2px 16px rgba(30, 15, 0, 0.07);
+				transition:
+					box-shadow 0.22s,
+					transform 0.22s;
+			}
+			.scroll-card:hover {
+				box-shadow: 0 8px 36px rgba(30, 15, 0, 0.13);
+				transform: translateY(-3px);
+			}
+
+			/* אזור העלאת תמונה */
+			.scroll-img-zone {
+				width: 100%;
+				aspect-ratio: 4/3;
+				background: linear-gradient(135deg, #efe5c4 0%, #e0d0a8 100%);
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				gap: 10px;
+				cursor: pointer;
+				position: relative;
+				overflow: hidden;
+				border-bottom: 1px solid var(--parch3);
+			}
+
+			.scroll-img-zone input[type='file'] {
+				position: absolute;
+				inset: 0;
+				opacity: 0;
+				cursor: pointer;
+			}
+
+			.scroll-img-zone .zone-icon {
+				font-size: 38px;
+				opacity: 0.35;
+			}
+			.scroll-img-zone .zone-text {
+				font-size: 13px;
+				color: var(--text-light);
+				text-align: center;
+				line-height: 1.6;
+				max-width: 180px;
+			}
+			.scroll-img-zone .zone-btn {
+				font-size: 11px;
+				color: var(--gold);
+				font-weight: 600;
+				border: 1px solid rgba(184, 135, 42, 0.38);
+				padding: 5px 14px;
+				border-radius: 20px;
+			}
+
+			.scroll-body {
+				padding: 22px 24px 26px;
+			}
+
+			.scroll-type-badge {
+				display: inline-block;
+				font-size: 10px;
+				font-weight: 700;
+				letter-spacing: 0.15em;
+				text-transform: uppercase;
+				color: var(--gold);
+				background: rgba(184, 135, 42, 0.1);
+				border: 1px solid rgba(184, 135, 42, 0.22);
+				padding: 3px 11px;
+				border-radius: 20px;
+				margin-bottom: 11px;
+			}
+
+			.scroll-body h3 {
+				font-family: 'Noto Serif Hebrew', serif;
+				font-size: 21px;
+				font-weight: 700;
+				color: var(--ink);
+				margin-bottom: 8px;
+			}
+
+			.scroll-body p {
+				font-size: 14px;
+				color: var(--text-mid);
+				line-height: 1.85;
+			}
+
+			.scroll-traits {
+				margin-top: 14px;
+				display: flex;
+				flex-wrap: wrap;
+				gap: 8px;
+			}
+
+			.trait {
+				font-size: 12px;
+				color: var(--text-mid);
+				background: var(--parch2);
+				border: 1px solid var(--parch3);
+				padding: 4px 11px;
+				border-radius: 20px;
+			}
+
+			/* למה סקשן - צריך לשמור על 2 עמודות בדסקטופ */
+			.why-section {
+				padding: 80px 24px;
+				background: var(--parchment);
+				border-top: 1px solid var(--parch3);
+				border-bottom: 1px solid var(--parch3);
+			}
+
+			.why-inner {
+				max-width: 860px;
+				margin: 0 auto;
+			}
+
+			.why-header {
+				text-align: center;
+				margin-bottom: 48px;
+			}
+
+			.why-header p {
+				font-size: 16px;
+				color: var(--text-light);
+				line-height: 1.85;
+				margin-top: 8px;
+				max-width: 480px;
+				margin-left: auto;
+				margin-right: auto;
+			}
+
+			.why-items {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 0;
+			}
+
+			@media (max-width: 640px) {
+				.why-items {
+					grid-template-columns: 1fr;
+				}
+			}
+
+			.why-item {
+				display: grid;
+				grid-template-columns: 48px 1fr;
+				gap: 18px;
+				align-items: start;
+				padding: 28px 24px;
+				border-bottom: 1px solid var(--parch3);
+			}
+
+			.why-items .why-item:nth-child(odd) {
+				border-left: 1px solid var(--parch3);
+			}
+
+			@media (max-width: 640px) {
+				.why-items .why-item:nth-child(odd) {
+					border-left: none;
+				}
+				.why-item {
+					padding: 24px 0;
+				}
+				.why-item:first-child {
+					border-top: 1px solid var(--parch3);
+				}
+			}
+
+			.why-num {
+				font-family: 'Frank Ruhl Libre', serif;
+				font-size: 30px;
+				font-weight: 300;
+				color: var(--gold);
+				line-height: 1;
+				padding-top: 4px;
+			}
+
+			.why-item h3 {
+				font-family: 'Noto Serif Hebrew', serif;
+				font-size: 17px;
+				font-weight: 700;
+				color: var(--ink);
+				margin-bottom: 6px;
+			}
+
+			.why-item h3,
+			.why-item p,
+			.step-row h4,
+			.step-row p,
+			.scroll-body p,
+			.t-card p {
+				text-align: right;
+			}
+
+			/* טאגים - לא לגעת בmax-width, זה עבד אחרי הרבה ניסויים */
+			.occasions-wrap {
+				padding: clamp(40px, 5vh, 72px) clamp(20px, 4vw, 60px);
+				background: var(--ink);
+			}
+
+			.occasions-inner {
+				max-width: 1100px;
+				margin: 0 auto;
+				display: flex;
+				flex-direction: column;
+				gap: clamp(24px, 3vh, 40px);
+			}
+
+			.occasions-head .section-label {
+				color: rgba(212, 160, 64, 0.65);
+			}
+			.occasions-head .section-heading {
+				color: #fff;
+				font-size: clamp(22px, 3.5vw, 34px);
+			}
+
+			.occ-grid {
+				display: flex;
+				flex-wrap: wrap;
+				gap: clamp(8px, 1.2vw, 16px);
+				justify-content: center;
+			}
+
+			.occ-pill {
+				flex: 1 1 min(180px, 100%);
+				max-width: calc(20% - clamp(8px, 1.2vw, 16px));
+			}
+
+			@media (max-width: 900px) {
+				.occ-pill {
+					max-width: calc(25% - clamp(8px, 1.2vw, 16px));
+				}
+			}
+			@media (max-width: 640px) {
+				.occ-pill {
+					max-width: calc(50% - clamp(8px, 1.2vw, 16px));
+				}
+			}
+
+			.occ-pill {
+				background: rgba(255, 255, 255, 0.05);
+				border: 1px solid rgba(212, 160, 64, 0.18);
+				color: rgba(255, 255, 255, 0.72);
+				padding: clamp(10px, 1.4vh, 16px) clamp(10px, 1.2vw, 18px);
+				border-radius: 8px;
+				font-size: clamp(13px, 1.2vw, 15px);
+				text-align: center;
+				transition:
+					background 0.2s,
+					border-color 0.2s,
+					color 0.2s;
+				cursor: default;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 7px;
+				line-height: 1.35;
+			}
+
+			.occ-pill:hover {
+				background: rgba(212, 160, 64, 0.12);
+				border-color: rgba(212, 160, 64, 0.45);
+				color: #fff;
+			}
+
+			/* שלבים */
+			.process-section {
+				padding: 80px 24px;
+				background: var(--cream);
+			}
+
+			.process-inner {
+				max-width: 700px;
+				margin: 0 auto;
+			}
+			.process-inner .scrolls-header {
+				margin-bottom: 44px;
+			}
+
+			.step-row {
+				display: grid;
+				grid-template-columns: 56px 1fr;
+				gap: 22px;
+				padding-bottom: 36px;
+				position: relative;
+			}
+
+			/* הקו המחבר בין השלבים - right צריך להיות חצי מרוחב הcircle */
+			.step-row:not(:last-child)::before {
+				content: '';
+				position: absolute;
+				right: 23px; /* תיקנתי מ-27 כי זה לא ישר */
+				top: 50px;
+				bottom: 0;
+				width: 1px;
+				background: linear-gradient(to bottom, var(--gold-pale), transparent);
+			}
+
+			.step-circle {
+				width: 46px;
+				height: 46px;
+				border-radius: 50%;
+				background: var(--parchment);
+				border: 1.5px solid var(--gold);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-family: 'Frank Ruhl Libre', serif;
+				font-size: 19px;
+				color: var(--gold);
+				flex-shrink: 0;
+			}
+
+			.step-row h4 {
+				font-family: 'Noto Serif Hebrew', serif;
+				font-size: 17px;
+				font-weight: 700;
+				color: var(--ink);
+				margin-bottom: 5px;
+				padding-top: 10px;
+			}
+
+			.step-row p {
+				font-size: 14px;
+				color: var(--text-mid);
+				line-height: 1.9;
+			}
+
+			/* עדויות */
+			.testimonials-section {
+				background: var(--parchment);
+				border-top: 1px solid var(--parch3);
+				padding: 80px 24px;
+			}
+
+			.testimonials-inner {
+				max-width: 1060px;
+				margin: 0 auto;
+			}
+			.testimonials-inner .scrolls-header {
+				margin-bottom: 46px;
+			}
+
+			.t-grid {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 20px;
+			}
+
+			@media (max-width: 840px) {
+				.t-grid {
+					grid-template-columns: 1fr;
+				}
+			}
+
+			.t-card {
+				background: var(--cream);
+				border: 1px solid var(--parch3);
+				border-radius: 8px;
+				padding: 26px 24px;
+			}
+
+			.t-quote {
+				font-family: 'Frank Ruhl Libre', serif;
+				font-size: 40px;
+				line-height: 0.8;
+				color: var(--gold);
+				opacity: 0.35;
+				margin-bottom: 10px;
+			}
+
+			.t-card p {
+				font-size: 15px;
+				color: var(--text-mid);
+				line-height: 1.9;
+				margin-bottom: 20px;
+			}
+
+			.t-author {
+				display: flex;
+				align-items: center;
+				gap: 12px;
+			}
+
+			.t-avatar {
+				width: 36px;
+				height: 36px;
+				border-radius: 50%;
+				background: var(--parch2);
+				border: 1px solid var(--parch3);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-family: 'Frank Ruhl Libre', serif;
+				font-size: 15px;
+				color: var(--text-light);
+				flex-shrink: 0;
+			}
+
+			.t-name {
+				font-size: 13px;
+				font-weight: 600;
+				color: var(--ink);
+			}
+			.t-loc {
+				font-size: 12px;
+				color: var(--text-light);
+			}
+
+			/* CTA סוף הדף */
+			.cta-section {
+				background: var(--ink-mid);
+				padding: 88px 24px;
+				text-align: center;
+				position: relative;
+				overflow: hidden;
+			}
+
+			/* הטקסט הגדול ברקע - אל תמחק את ה opacity גם אם זה נראה קטן מדי */
+			.cta-section::before {
+				content: 'כתר המלך';
+				font-family: 'Frank Ruhl Libre', serif;
+				font-size: clamp(60px, 14vw, 200px);
+				font-weight: 900;
+				color: rgba(180, 110, 30, 0.04);
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				white-space: nowrap;
+				pointer-events: none;
+			}
+
+			.cta-section .section-label {
+				color: rgba(212, 160, 64, 0.65);
+				margin-bottom: 14px;
+			}
+
+			.cta-section h2 {
+				font-family: 'Noto Serif Hebrew', serif;
+				font-size: clamp(26px, 4.5vw, 50px);
+				font-weight: 700;
+				color: #fff;
+				margin-bottom: 14px;
+				position: relative;
+			}
+
+			.cta-desc {
+				color: rgba(255, 255, 255, 0.4);
+				font-size: 16px;
+				margin-bottom: 10px;
+				font-weight: 300;
+				position: relative;
+			}
+
+			.cta-note {
+				font-size: 14px;
+				color: var(--gold2);
+				opacity: 0.7;
+				margin-bottom: 38px;
+				position: relative;
+			}
+
+			.cta-section .btn-gold {
+				font-size: 16px;
+				padding: 16px 44px;
+				position: relative;
+			}
+
+			/* כפתור שפה - fixed כדי שיהיה תמיד נגיש */
+			.lang-switcher {
+				position: fixed;
+				top: 16px;
+				left: 18px;
+				z-index: 1000;
+				display: flex;
+				align-items: center;
+				gap: 2px;
+				background: rgba(28, 20, 10, 0.75);
+				border: 1px solid rgba(184, 135, 42, 0.3);
+				backdrop-filter: blur(8px);
+				border-radius: 40px;
+				padding: 4px 5px;
+			}
+
+			.lang-btn {
+				padding: 5px 13px;
+				border-radius: 30px;
+				border: none;
+				background: transparent;
+				color: rgba(255, 255, 255, 0.5);
+				font-size: 12px;
+				font-family: 'Heebo', sans-serif;
+				font-weight: 600;
+				letter-spacing: 0.06em;
+				cursor: pointer;
+				transition:
+					background 0.18s,
+					color 0.18s;
+			}
+
+			.lang-btn.active {
+				background: var(--gold);
+				color: var(--ink);
+			}
+
+			.lang-btn:hover:not(.active) {
+				color: rgba(255, 255, 255, 0.85);
+			}
+
+			/* לוגו / שם המותג בראש */
+			.brand-bar {
+				position: fixed;
+				top: 16px;
+				right: 18px;
+				z-index: 1000;
+				font-family: 'Frank Ruhl Libre', serif;
+				font-size: 15px;
+				font-weight: 700;
+				color: var(--gold);
+				letter-spacing: 0.06em;
+				opacity: 0.85;
+				pointer-events: none;
+			}
+			.sofer-section {
+				background: var(--parchment);
+				padding: 80px 24px;
+				border-top: 1px solid var(--parch3);
+			}
+
+			.sofer-inner {
+				max-width: 860px;
+				margin: 0 auto;
+				display: grid;
+				grid-template-columns: 280px 1fr;
+				gap: 52px;
+				align-items: center;
+			}
+
+			.sofer-img-zone {
+				width: 280px;
+				height: 320px;
+				border-radius: 10px;
+				background: linear-gradient(135deg, #efe5c4 0%, #e0d0a8 100%);
+				border: 1px solid var(--parch3);
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				gap: 10px;
+				cursor: pointer;
+				position: relative;
+				overflow: hidden;
+			}
+
+			.sofer-img-zone input[type='file'] {
+				position: absolute;
+				inset: 0;
+				opacity: 0;
+				cursor: pointer;
+			}
+
+			.sofer-content {
+				text-align: right;
+			}
+
+			.sofer-bio {
+				font-size: 16px;
+				color: var(--text-mid);
+				line-height: 1.9;
+				margin-top: 12px;
+			}
+
+			@media (max-width: 640px) {
+				.sofer-inner {
+					grid-template-columns: 1fr;
+				}
+				.sofer-img-zone {
+					width: 100%;
+					height: 240px;
+				}
+			}
+			/* ── FOOTER ── */
+			footer {
+				background: var(--ink);
+				padding: 28px 24px;
+				text-align: center;
+				border-top: 1px solid rgba(180, 110, 30, 0.1);
+			}
+
+			footer p {
+				font-size: 13px;
+				color: rgba(255, 255, 255, 0.26);
+				line-height: 2;
+			}
+			footer a {
+				color: rgba(212, 160, 64, 0.65);
+				text-decoration: none;
+			}
+			footer a:hover {
+				color: var(--gold2);
+			}
+		</style>
+	</head>
+	<body>
+		<!-- ══ LANG SWITCHER ══ -->
+		<div class="lang-switcher">
+			<button class="lang-btn active" data-lang="he" onclick="setLang('he')">עב</button>
+			<button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+		</div>
+
+		<!-- שם המותג קבוע בפינה -->
+		<div class="brand-bar" data-he="כתר המלך" data-en="Keter HaMelech">כתר המלך</div>
+
+		<!-- ══ HERO ══ -->
+		<section class="hero">
+			<div class="hero-bg-letter">כ</div>
+
+			<div class="hero-left">
+				<div class="hero-eyebrow" data-he="כתר המלך | מצווה לדורות" data-en="Keter HaMelech | A Mitzvah for Generations">
+					כתר המלך | מצווה לדורות
+				</div>
+				<h1>
+					<span data-he="כתיבת ספר תורה" data-en="Writing a Torah Scroll">כתיבת ספר תורה</span>
+					<em data-he="לעילוי נשמה" data-en="In Memory of a Loved One">לעילוי נשמה</em>
+				</h1>
+				<p
+					class="hero-desc"
+					data-he='הנציחו את יקיריכם בדרך שתחיה לעד — ספר תורה הנכתב בידי סופר סת"ם מהמעולים, שיקרא בציבור מדי שבת וחג, לעד ולנצח.'
+					data-en="Honor your loved ones in a way that will live forever — a Torah scroll written by a master scribe, read publicly every Shabbat and holiday, for eternity."
+				>
+					הנציחו את יקיריכם בדרך שתחיה לעד — ספר תורה הנכתב בידי סופר סת"ם מהמעולים, שיקרא בציבור מדי שבת וחג, לעד ולנצח.
+				</p>
+				<div class="hero-actions">
+					<a href="#contact" class="btn-gold" data-he="השאירו פרטים לייעוץ חינם" data-en="Contact Us for a Free Consultation"
+						>השאירו פרטים לייעוץ חינם</a
+					>
+					<a href="#process" class="btn-ghost" data-he="כיצד זה עובד? ←" data-en="How does it work? →">כיצד זה עובד? ←</a>
+				</div>
+			</div>
+
+			<div class="hero-right">
+				<div class="hero-img-zone" id="hero-zone">
+					<input type="file" accept="image/*" onchange="previewImg(this, 'hero-zone')" />
+					<div class="ph-icon">📜</div>
+					<div class="ph-label" data-he="לחצו להעלאת תמונה ראשית" data-en="Click to upload main image">
+						לחצו להעלאת תמונה ראשית<br /><span style="font-size: 11px; opacity: 0.7">(ספר פתוח, סופר, טקס הכנסה…)</span>
+					</div>
+					<div class="ph-btn" data-he="העלאת תמונה" data-en="Upload Image">העלאת תמונה</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ══ PASUK ══ -->
+		<div class="pasuk-strip">
+			<p
+				class="pasuk-text"
+				data-he='"וְעַתָּה כִּתְבוּ לָכֶם אֶת הַשִּׁירָה הַזֹּאת"'
+				data-en='"Now write for yourselves this song"'
+			>
+				"וְעַתָּה כִּתְבוּ לָכֶם אֶת הַשִּׁירָה הַזֹּאת"
+			</p>
+			<p class="pasuk-source" data-he="דברים לא, יט" data-en="Deuteronomy 31:19">דברים לא, יט</p>
+		</div>
+
+		<!-- ══ SIFREI TORAH SECTION ══ -->
+		<section class="scrolls-section">
+			<div class="scrolls-inner">
+				<div class="scrolls-header">
+					<span class="section-label" data-he="סוגי הספרים" data-en="Types of Scrolls">סוגי הספרים</span>
+					<h2 class="section-heading" data-he="ספר תורה אשכנזי או ספרדי?" data-en="Ashkenazi or Sephardic Torah Scroll?">
+						ספר תורה אשכנזי או ספרדי?
+					</h2>
+					<p
+						class="section-body"
+						data-he="ניתן לכתוב בכתב אשכנזי (בית יוסף) או ספרדי (וולש / מזרחי), בהתאם למסורת המשפחה ולמנהג בית הכנסת."
+						data-en="The scroll can be written in Ashkenazi script (Beit Yosef) or Sephardic script (Vellish/Mizrahi), according to family tradition and synagogue custom."
+					>
+						ניתן לכתוב בכתב אשכנזי (בית יוסף) או ספרדי (וולש / מזרחי), בהתאם למסורת המשפחה ולמנהג בית הכנסת.
+					</p>
+				</div>
+
+				<div class="scrolls-grid">
+					<!-- אשכנזי -->
+					<div class="scroll-card">
+						<div class="scroll-img-zone" id="zone-ashk">
+							<img src="./images/ashkenazTora.jpg" alt="ספר תורה אשכנזי" />
+						</div>
+						<div class="scroll-body">
+							<span class="scroll-type-badge" data-he="אשכנזי · בית יוסף" data-en="Ashkenazi · Beit Yosef"
+								>אשכנזי · בית יוסף</span
+							>
+							<h3 data-he="ספר תורה אשכנזי" data-en="Ashkenazi Torah Scroll">ספר תורה אשכנזי</h3>
+							<p
+								data-he="נכתב בכתב בית יוסף על קלף מובחר, עם אדים ומנחה מדויקים לפי מנהג האשכנזים. מתאים לבתי כנסת אשכנזים בכל העולם."
+								data-en="Written in Beit Yosef script on premium parchment, with precise proportions per Ashkenazi tradition. Suitable for Ashkenazi synagogues worldwide."
+							>
+								נכתב בכתב בית יוסף על קלף מובחר, עם אדים ומנחה מדויקים לפי מנהג האשכנזים. מתאים לבתי כנסת אשכנזים בכל העולם.
+							</p>
+							<div class="scroll-traits">
+								<span class="trait" data-he="כתב בית יוסף" data-en="Beit Yosef Script">כתב בית יוסף</span>
+								<span class="trait" data-he="קלף אשכנזי" data-en="Ashkenazi Parchment">קלף אשכנזי</span>
+								<span class="trait" data-he="245 עמודים" data-en="245 Columns">245 עמודים</span>
+							</div>
+						</div>
+					</div>
+
+					<!-- ספרדי -->
+					<div class="scroll-card">
+						<div class="scroll-img-zone" id="zone-seph">
+							<img src="./images/sfardicTora.jpg" alt="ספר תורה ספרדי" style="max-height: 300px" />
+						</div>
+						<div class="scroll-body">
+							<span class="scroll-type-badge" data-he="ספרדי · מזרחי" data-en="Sephardic · Mizrahi">ספרדי · מזרחי</span>
+							<h3 data-he="ספר תורה ספרדי" data-en="Sephardic Torah Scroll">ספר תורה ספרדי</h3>
+							<p
+								data-he="נכתב בכתב וולש על קלף דק ועדין, עם קישוטי הכתב האופייניים למסורת הספרדים ועדות המזרח."
+								data-en="Written in Vellish script on fine, delicate parchment, with ornamental lettering characteristic of Sephardic and Mizrahi tradition."
+							>
+								נכתב בכתב וולש על קלף דק ועדין, עם קישוטי הכתב האופייניים למסורת הספרדים ועדות המזרח.
+							</p>
+							<div class="scroll-traits">
+								<span class="trait" data-he="כתב וולש" data-en="Vellish Script">כתב וולש</span>
+								<span class="trait" data-he="קלף ספרדי" data-en="Sephardic Parchment">קלף ספרדי</span>
+								<span class="trait" data-he="248 עמודים" data-en="248 Columns">248 עמודים</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ══ WHY ══ -->
+		<section class="why-section">
+			<div class="why-inner">
+				<div class="why-header">
+					<span class="section-label" data-he="הרקע" data-en="Background">הרקע</span>
+					<h2 class="section-heading" data-he="מדוע ספר תורה?" data-en="Why a Torah Scroll?">מדוע ספר תורה?</h2>
+					<p
+						data-he="אחת מ-613 המצוות — זכות שנשמת הנפטר נהנית ממנה בכל קריאה ציבורית, לנצח."
+						data-en="One of the 613 commandments — a merit that benefits the soul of the departed at every public reading, forever."
+					>
+						אחת מ-613 המצוות — זכות שנשמת הנפטר נהנית ממנה בכל קריאה ציבורית, לנצח.
+					</p>
+				</div>
+
+				<div class="why-items">
+					<div class="why-item">
+						<div class="why-num">א</div>
+						<div>
+							<h3 data-he="מצווה מן התורה" data-en="A Biblical Commandment">מצווה מן התורה</h3>
+							<p
+								data-he="כתיבת ספר תורה היא מצווה עצמאית המוטלת על כל יהודי. תרומה לכתיבה נחשבת כאילו קיים את המצווה בעצמו."
+								data-en="Writing a Torah scroll is an independent commandment incumbent upon every Jew. Contributing to one is considered as if you fulfilled the mitzvah yourself."
+							>
+								כתיבת ספר תורה היא מצווה עצמאית המוטלת על כל יהודי. תרומה לכתיבה נחשבת כאילו קיים את המצווה בעצמו.
+							</p>
+						</div>
+					</div>
+					<div class="why-item">
+						<div class="why-num">ב</div>
+						<div>
+							<h3 data-he="זכות לנצח לנשמה" data-en="An Eternal Merit for the Soul">זכות לנצח לנשמה</h3>
+							<p
+								data-he="בכל פעם שהציבור קורא בספר — בשבת, בחג, בשמחה — הזכות עולה לנשמת הנפטר. זה לא נגמר."
+								data-en="Every time the congregation reads from the scroll — on Shabbat, on holidays, at celebrations — the merit rises to the departed soul. It never ends."
+							>
+								בכל פעם שהציבור קורא בספר — בשבת, בחג, בשמחה — הזכות עולה לנשמת הנפטר. זה לא נגמר.
+							</p>
+						</div>
+					</div>
+					<div class="why-item">
+						<div class="why-num">ג</div>
+						<div>
+							<h3 data-he="הנצחת חיילים נופלים" data-en="Honoring Fallen Soldiers">הנצחת חיילים נופלים</h3>
+							<p
+								data-he="מאות משפחות שכולות בחרו בספר תורה כדרך ההנצחה הנעלה ביותר לבניהן שנפלו בהגנת הארץ."
+								data-en="Hundreds of bereaved families have chosen a Torah scroll as the most noble way to memorialize their sons and daughters who fell defending the land."
+							>
+								מאות משפחות שכולות בחרו בספר תורה כדרך ההנצחה הנעלה ביותר לבניהן שנפלו בהגנת הארץ.
+							</p>
+						</div>
+					</div>
+					<div class="why-item">
+						<div class="why-num">ד</div>
+						<div>
+							<h3 data-he="מתנה חיה לקהילה" data-en="A Living Gift to the Community">מתנה חיה לקהילה</h3>
+							<p
+								data-he="הספר ניתן לבית הכנסת שתבחרו ומשמש דורות. שמו של הנפטר מונצח בהקדשה שתוצמד לספר לעולמים."
+								data-en="The scroll is donated to your chosen synagogue and serves generations. The name of the departed is immortalized in a dedication attached to the scroll forever."
+							>
+								הספר ניתן לבית הכנסת שתבחרו ומשמש דורות. שמו של הנפטר מונצח בהקדשה שתוצמד לספר לעולמים.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ══ OCCASIONS ══ -->
+		<section class="occasions-wrap">
+			<div class="occasions-inner">
+				<div class="occasions-head">
+					<span class="section-label">מטרות</span>
+					<h2 class="section-heading">לאיזה מטרה?</h2>
+				</div>
+				<div class="occ-grid">
+					<span class="occ-pill">🪖 הנצחת חייל שנפל</span>
+					<span class="occ-pill">🕯 לעילוי נשמת הורה</span>
+					<span class="occ-pill">❤️ לזכר בן / בת זוג</span>
+					<span class="occ-pill">👶 לרגל לידת בן</span>
+					<span class="occ-pill">💒 לרגל נישואין</span>
+					<span class="occ-pill">🎓 בר / בת מצווה</span>
+					<span class="occ-pill">🏠 חנוכת בית כנסת</span>
+					<span class="occ-pill">📖 סיום מסכת</span>
+					<span class="occ-pill">🌟 יובל / שנה עגולה</span>
+					<span class="occ-pill">🕍 תרומה לקהילה</span>
+				</div>
+			</div>
+		</section>
+		<!-- ══ SOFER ══ -->
+		<section class="sofer-section">
+			<div class="sofer-inner">
+				<img src="./images/sofer.jpg" alt="הרב אברהם יעקב שלומון" class="sofer-img" />
+				<div class="sofer-content">
+					<span class="section-label" data-he="הסופר שלנו" data-en="Our Scribe">הסופר שלנו</span>
+					<h2 class="section-heading" data-he="הרב אברהם יעקב שלומון" data-en="Rabbi Avraham Yaakov Shlomon">
+						הרב אברהם יעקב שלומון
+					</h2>
+					<p class="sofer-bio" data-he="..." data-en="...">...</p>
+				</div>
+			</div>
+		</section>
+		<!-- ══ PROCESS ══ -->
+		<section class="process-section" id="process">
+			<div class="process-inner">
+				<div class="scrolls-header">
+					<span class="section-label" data-he="איך זה עובד" data-en="How It Works">איך זה עובד</span>
+					<h2 class="section-heading" data-he="שבעה שלבים מהרגע הראשון" data-en="Seven Steps From Day One">
+						שבעה שלבים<br />מהרגע הראשון
+					</h2>
+				</div>
+
+				<div class="step-row">
+					<div class="step-circle">א</div>
+					<div>
+						<h4 data-he="שיחת ייעוץ חינם" data-en="Free Consultation Call">שיחת ייעוץ חינם</h4>
+						<p
+							data-he="נדבר על הסיבה לכתיבה, על בית הכנסת המיועד, לוח הזמנים ותקציב — בלי התחייבות, בלי לחץ."
+							data-en="We will discuss the reason, the synagogue, timeline and budget — no commitment, no pressure."
+						>
+							נדבר על הסיבה לכתיבה, על בית הכנסת המיועד, לוח הזמנים ותקציב — בלי התחייבות, בלי לחץ.
+						</p>
+					</div>
+				</div>
+				<div class="step-row">
+					<div class="step-circle">ב</div>
+					<div>
+						<h4 data-he="בחירת הסופר ומסורת הכתיבה" data-en="Choosing the Scribe and Tradition">
+							בחירת הסופר ומסורת הכתיבה
+						</h4>
+						<p
+							data-he='נתאים לכם סופר סת"ם מוסמך — אשכנזי או ספרדי — בהתאם למסורת המשפחה ובית הכנסת.'
+							data-en="We will match you with a certified scribe — Ashkenazi or Sephardic — according to your family and synagogue tradition."
+						>
+							נתאים לכם סופר סת"ם מוסמך — אשכנזי או ספרדי — בהתאם למסורת המשפחה ובית הכנסת.
+						</p>
+					</div>
+				</div>
+				<div class="step-row">
+					<div class="step-circle">ג</div>
+					<div>
+						<h4 data-he="כתיבה מלווה" data-en="Accompanied Writing">כתיבה מלווה</h4>
+						<p
+							data-he="הכתיבה נמשכת בין חצי שנה לשנה. תקבלו עדכונים שוטפים ואפשרות לבקר את הסופר."
+							data-en="Writing takes 6 months to a year. You will receive updates and may visit the scribe."
+						>
+							הכתיבה נמשכת בין חצי שנה לשנה. תקבלו עדכונים שוטפים ואפשרות לבקר את הסופר.
+						</p>
+					</div>
+				</div>
+				<div class="step-row">
+					<div class="step-circle">ד</div>
+					<div>
+						<h4 data-he="בדיקת מגיה" data-en="Expert Proofreading">בדיקת מגיה</h4>
+						<p
+							data-he="כל ספר עובר בדיקה קפדנית על ידי מגיה מוסמך — לוודא כשרות מלאה של כל אות."
+							data-en="Every scroll is checked by a certified proofreader to ensure the validity of every letter."
+						>
+							כל ספר עובר בדיקה קפדנית על ידי מגיה מוסמך — לוודא כשרות מלאה של כל אות.
+						</p>
+					</div>
+				</div>
+				<div class="step-row">
+					<div class="step-circle">ה</div>
+					<div>
+						<h4 data-he="בחירת מעילי ספר תורה" data-en="Choosing Torah Scroll Covers">בחירת מעילי ספר תורה</h4>
+						<p
+							data-he="בחירת מעיל ספר תורה, כתר, וכל האביזרים הנלווים — לפי המסורת וטעם המשפחה."
+							data-en="Choosing a Torah scroll cover, crown, and all accessories — according to tradition and family taste."
+						>
+							בחירת מעיל ספר תורה, כתר, וכל האביזרים הנלווים — לפי המסורת וטעם המשפחה.
+						</p>
+					</div>
+				</div>
+				<div class="step-row">
+					<div class="step-circle">ו</div>
+					<div>
+						<h4 data-he="בחירת בית כנסת" data-en="Choosing a Synagogue">בחירת בית כנסת</h4>
+						<p
+							data-he="בחירת בית כנסת לקבלת הספר — לפי מיקום, קהילה, וצרכים מיוחדים. במידת הצורך נמצא עבורכם בית כנסת שישמח לקבל ויקרא בספר שלכם כל שבוע"
+							data-en="Choosing a synagogue to receive the scroll — according to location, community, and special needs. If needed, we will find a synagogue that will be happy to receive and read your scroll every week."
+						>
+							בחירת בית כנסת לקבלת הספר — לפי מיקום, קהילה, וצרכים מיוחדים. במידת הצורך נמצא עבורכם בית כנסת שישמח לקבל ויקרא
+							בספר שלכם כל שבוע
+						</p>
+					</div>
+				</div>
+				<div class="step-row">
+					<div class="step-circle">ז</div>
+					<div>
+						<h4 data-he="הכנסת ספר תורה" data-en="Torah Scroll Dedication Ceremony">הכנסת ספר תורה</h4>
+						<p
+							data-he="אירוע הכנסת ספר תורה עם כל המשפחה — שמחה, מוזיקה, ריקוד, ומצווה שלמה לדורות."
+							data-en="A Torah dedication ceremony with the whole family — joy, music, dancing, and a mitzvah for generations."
+						>
+							אירוע הכנסת ספר תורה עם כל המשפחה — שמחה, מוזיקה, ריקוד, ומצווה שלמה לדורות.
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ══ TESTIMONIALS ══ -->
+		<section class="testimonials-section">
+			<div class="testimonials-inner">
+				<div class="scrolls-header">
+					<span class="section-label" data-he="משפחות שסיפרו" data-en="Families Who Shared">משפחות שסיפרו</span>
+					<h2 class="section-heading" data-he="מילים מהלב" data-en="Words from the Heart">מילים מהלב</h2>
+				</div>
+
+				<div class="t-grid">
+					<div class="t-card">
+						<div class="t-quote">"</div>
+						<p
+							data-he="בנינו נפל בצוק איתן. לא ידענו כיצד להנציח אותו. הספר קורא בבית הכנסת שלנו כל שבת — ואנחנו מרגישים אותו איתנו."
+							data-en="Our son fell in battle. The scroll is read in our synagogue every Shabbat — and we feel him with us."
+						>
+							בנינו נפל בצוק איתן. לא ידענו כיצד להנציח אותו. הספר קורא בבית הכנסת שלנו כל שבת — ואנחנו מרגישים אותו איתנו.
+						</p>
+						<div class="t-author">
+							<div class="t-avatar">כ</div>
+							<div>
+								<div class="t-name">משפחת כהן</div>
+								<div class="t-loc">נתניה</div>
+							</div>
+						</div>
+					</div>
+					<div class="t-card">
+						<div class="t-quote">"</div>
+						<p
+							data-he="קנינו חלק בספר תורה לזכר אבא. הסופר היה אדם נפלא, הסביר כל שלב. הרגשנו שזו מצווה שבאה מהלב."
+							data-en="We bought a share in a Torah scroll in memory of our father. The scribe was wonderful and explained every step."
+						>
+							קנינו חלק בספר תורה לזכר אבא. הסופר היה אדם נפלא, הסביר כל שלב. הרגשנו שזו מצווה שבאה מהלב.
+						</p>
+						<div class="t-author">
+							<div class="t-avatar">י</div>
+							<div>
+								<div class="t-name">יצחק ואחיותיו</div>
+								<div class="t-loc">ירושלים</div>
+							</div>
+						</div>
+					</div>
+					<div class="t-card">
+						<div class="t-quote">"</div>
+						<p
+							data-he="לרגל חתונתנו רצינו לתת מתנה שתישאר לנצח. הספר הוכנס לבית הכנסת של שכונתנו — כל ילד שיגדל שם יקרא בו."
+							data-en="For our wedding we wanted a gift that would last forever. Every child who grows up in our neighborhood will read from it."
+						>
+							לרגל חתונתנו רצינו לתת מתנה שתישאר לנצח. הספר הוכנס לבית הכנסת של שכונתנו — כל ילד שיגדל שם יקרא בו.
+						</p>
+						<div class="t-author">
+							<div class="t-avatar">ש</div>
+							<div>
+								<div class="t-name">שמעון ורות</div>
+								<div class="t-loc">בני ברק</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ══ CTA ══ -->
+		<section class="cta-section" id="contact">
+			<span class="section-label" data-he="נתחיל?" data-en="Let us Begin?">נתחיל?</span>
+			<h2 data-he="התחילו את המצווה היום" data-en="Start the Mitzvah Today">התחילו את המצווה היום</h2>
+			<p
+				class="cta-desc"
+				data-he="ייעוץ אישי, ללא עלות, ללא התחייבות"
+				data-en="Personal consultation, free of charge, no commitment"
+			>
+				ייעוץ אישי, ללא עלות, ללא התחייבות
+			</p>
+			<p
+				class="cta-note"
+				data-he="ספר שלם · חלק בספר · תשלומים נוחים · כל מסורת"
+				data-en="Full scroll · Partial share · Easy payments · Any tradition"
+			>
+				ספר שלם · חלק בספר · תשלומים נוחים · כל מסורת
+			</p>
+			<a
+				id="wa-btn"
+				href="https://wa.me/972587707555?text=שלום%2C%20אני%20מעוניין%2Fת%20לברר%20על%20כתיבת%20ספר%20תורה"
+				class="btn-gold"
+				target="_blank"
+				data-he="💬 דברו איתנו בוואטסאפ"
+				data-en="💬 Contact Us on WhatsApp"
+				data-href-he="https://wa.me/972587707555?text=שלום%2C%20אני%20מעוניין%2Fת%20לברר%20על%20כתיבת%20ספר%20תורה"
+				data-href-en="https://wa.me/972587707555?text=Hello%2C%20I%20would%20like%20to%20inquire%20about%20a%20Torah%20scroll"
+				>💬 דברו איתנו בוואטסאפ</a
+			>
+		</section>
+
+		<!-- ══ FOOTER ══ -->
+		<footer>
+			<p
+				data-he="כתר המלך · 058-770-7555 · AS0548407555@gmail.com"
+				data-en="Keter HaMelech · 058-770-7555 · AS0548407555@gmail.com"
+			>
+				כתר המלך · <a href="tel:+972587707555">058-770-7555</a> ·
+				<a href="mailto:AS0548407555@gmail.com">AS0548407555@gmail.com</a>
+			</p>
+			<p data-he="© 2026 · כל הזכויות שמורות לOdeyah Abeles" data-en="© 2026 · All rights reserved to Odeyah Abeles">
+				© 2026 · כל הזכויות שמורות לOdeyah Abeles
+			</p>
+		</footer>
+	</body>
+</html>
