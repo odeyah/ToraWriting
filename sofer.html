@@ -61,11 +61,6 @@
     var body = encodeURIComponent('שם: ' + name + '%0Aטלפון: ' + phone + '%0Aשירות: ' + service + '%0A%0A' + msg);
     window.location.href = 'mailto:AS0548407555@gmail.com?subject=' + subject + '&body=' + body;
   }
-
-  /* מחיל שפה שמורה רק אם היא שונה מברירת המחדל */
-  window.onload = function() {
-    setLang(currentLang);
-  };
 </script>
 </head>
 <body><nav>
@@ -73,7 +68,7 @@
   <ul class="nav-links">
     <li><a href="index.html" class="nav-link" data-he="בית" data-en="Home">בית</a></li>
     <li><a href="about.html" class="nav-link" data-he="אודות" data-en="About">אודות</a></li>
-    <li><a href="sofer.html" class="nav-link active" data-he="סופר סת"ם" data-en="Torah Scribe">סופר סת"ם</a></li>
+    <li><a href="sofer.html" class="nav-link" data-he="סת''ם" data-en="Torah Scribe">סת"ם</a></li>
     <li><a href="parochet.html" class="nav-link" data-he="פרוכות" data-en="Parochet">פרוכות</a></li>
     <li><a href="hashgacha.html" class="nav-link" data-he="השגחת כשרות" data-en="Kashrut">השגחת כשרות</a></li>
     <li><a href="contact.html" class="nav-link" data-he="צור קשר" data-en="Contact">צור קשר</a></li>
@@ -265,5 +260,6 @@
   <p>כתר המלך · <a href="tel:+972587707555">058-770-7555</a> · <a href="mailto:AS0548407555@gmail.com">AS0548407555@gmail.com</a></p>
   <p>© 2026 · כל הזכויות שמורות לOdeyah Abeles</p>
 </footer>
+<script>setLang(currentLang);</script>
 </body>
 </html>
