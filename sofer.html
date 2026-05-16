@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>כתר המלך | סופר סת"ם</title>
+  <link rel="stylesheet" href="style.css" />
+  <script>
+  var currentLang = 'he';
+  function setLang(lang) {
+    currentLang = lang;
+    var isHe = lang === 'he';
+    document.documentElement.lang = lang;
+    document.documentElement.dir = isHe ? 'rtl' : 'ltr';
+    document.querySelectorAll('.lang-btn').forEach(function(b) {
+      b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+    });
+    document.querySelectorAll('[data-he]').forEach(function(el) {
+      var val = isHe ? el.dataset.he : el.dataset.en;
+      if (val !== undefined) el.textContent = val;
+    });
+  }
+  function toggleMobileMenu() {
+    document.getElementById('mobile-menu').classList.toggle('open');
+    document.getElementById('hamburger').classList.toggle('open');
+  }
+  function closeMobileMenu() {
+    document.getElementById('mobile-menu').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+  }
+  function previewImg(input, zoneId) {
+    var zone = document.getElementById(zoneId);
+    if (!input.files || !input.files[0]) return;
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      zone.querySelectorAll('.zone-icon,.zone-text,.zone-btn').forEach(function(el) { el.style.display='none'; });
+      var img = zone.querySelector('img');
+      if (!img) {
+        img = document.createElement('img');
+        img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;';
+        zone.appendChild(img);
+      }
+      img.src = e.target.result;
+      img.style.display = 'block';
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+  function submitContact(e) {
+    e.preventDefault();
+    var name    = document.getElementById('cf-name').value;
+    var phone   = document.getElementById('cf-phone').value;
+    var service = document.getElementById('cf-service').value;
+    var msg     = document.getElementById('cf-msg').value;
+    var subject = encodeURIComponent('פנייה מהאתר כתר המלך — ' + service);
+    var body    = encodeURIComponent('שם: ' + name + '\nטלפון: ' + phone + '\nשירות: ' + service + '\n\n' + msg);
+    window.location.href = 'mailto:AS0548407555@gmail.com?subject=' + subject + '&body=' + body;
+  }
+</script>
+</head>
+<body><nav>
+  <a href="index.html" class="nav-brand">כתר המלך</a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="nav-link" data-he="בית" data-en="Home">בית</a></li>
+    <li><a href="about.html" class="nav-link" data-he="אודות" data-en="About">אודות</a></li>
+    <li><a href="sofer.html" class="nav-link active" data-he="סופר סת"ם" data-en="Torah Scribe">סופר סת"ם</a></li>
+    <li><a href="parochet.html" class="nav-link" data-he="פרוכות" data-en="Parochet">פרוכות</a></li>
+    <li><a href="hashgacha.html" class="nav-link" data-he="השגחת כשרות" data-en="Kashrut">השגחת כשרות</a></li>
+    <li><a href="contact.html" class="nav-link" data-he="צור קשר" data-en="Contact">צור קשר</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <div class="nav-lang">
+      <button class="lang-btn active" data-lang="he" onclick="setLang('he')">עב</button>
+      <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+    </div>
+    <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html" class="nav-link" data-he="🏠 בית" data-en="🏠 Home">🏠 בית</a>
+  <a href="about.html" class="nav-link" data-he="👤 אודות" data-en="👤 About">👤 אודות</a>
+  <a href="sofer.html" class="nav-link" data-he="📜 סופר סת"ם" data-en="📜 Torah Scribe">📜 סופר סת"ם</a>
+  <a href="parochet.html" class="nav-link" data-he="🕍 פרוכות" data-en="🕍 Parochet">🕍 פרוכות</a>
+  <a href="hashgacha.html" class="nav-link" data-he="✅ השגחת כשרות" data-en="✅ Kashrut">✅ השגחת כשרות</a>
+  <a href="contact.html" class="nav-link" data-he="✉️ צור קשר" data-en="✉️ Contact">✉️ צור קשר</a>
+</div>
+<div class="hero-dark">
+  <div class="hero-bg-word" style="font-size:clamp(160px,26vw,340px);">ת</div>
+  <div class="hero-content">
+    <div class="hero-eyebrow" data-he='כתר המלך | סופר סת"ם' data-en="Keter HaMelech | Torah Scribe">כתר המלך | סופר סת"ם</div>
+    <h1>
+      <span data-he="כתיבת ספר תורה" data-en="Writing a Torah Scroll">כתיבת ספר תורה</span>
+      <em data-he="לעילוי נשמה" data-en="In Memory of a Loved One">לעילוי נשמה</em>
+    </h1>
+    <p class="hero-desc" data-he='הנציחו את יקיריכם בדרך שתחיה לעד — ספר תורה הנכתב בידי סופר סת"ם מהמעולים, שיקרא בציבור מדי שבת וחג, לעד ולנצח.' data-en="Honor your loved ones in a way that will live forever — a Torah scroll written by a master scribe, read publicly every Shabbat and holiday.">הנציחו את יקיריכם בדרך שתחיה לעד — ספר תורה הנכתב בידי סופר סת"ם מהמעולים, שיקרא בציבור מדי שבת וחג, לעד ולנצח.</p>
+    <div class="hero-btns">
+      <a href="contact.html" class="btn-gold" data-he="השאירו פרטים לייעוץ חינם" data-en="Free Consultation">השאירו פרטים לייעוץ חינם</a>
+    </div>
+  </div>
+  <div class="hero-img-side">
+    <div class="img-zone" id="sofer-hero-img" style="height:100%;background:#160e04;">
+      <input type="file" accept="image/*" onchange="previewImg(this,'sofer-hero-img')">
+      <div class="zone-icon" style="color:rgba(180,120,40,0.4);">📜</div>
+      <div class="zone-text" style="color:rgba(180,120,40,0.45);">תמונת הרב כותב</div>
+      <div class="zone-btn">העלאת תמונה</div>
+    </div>
+  </div>
+</div>
+
+<div class="pasuk-strip">
+  <p class="pasuk-text" data-he='"וְעַתָּה כִּתְבוּ לָכֶם אֶת הַשִּׁירָה הַזֹּאת"' data-en='"Now write for yourselves this song"'>"וְעַתָּה כִּתְבוּ לָכֶם אֶת הַשִּׁירָה הַזֹּאת"</p>
+  <p class="pasuk-source" data-he="דברים לא, יט" data-en="Deuteronomy 31:19">דברים לא, יט</p>
+</div>
+
+<section class="scrolls-section">
+  <div class="scrolls-inner">
+    <div class="scrolls-header">
+      <span class="section-label" data-he="סוגי הספרים" data-en="Types of Scrolls">סוגי הספרים</span>
+      <h2 class="section-heading" data-he="ספר תורה אשכנזי או ספרדי?" data-en="Ashkenazi or Sephardic Torah Scroll?">ספר תורה אשכנזי או ספרדי?</h2>
+      <p class="section-body" data-he="ניתן לכתוב בכתב אשכנזי (בית יוסף) או ספרדי (וולש / מזרחי), בהתאם למסורת המשפחה ולמנהג בית הכנסת." data-en="Written in Ashkenazi or Sephardic script, according to family tradition and synagogue custom.">ניתן לכתוב בכתב אשכנזי (בית יוסף) או ספרדי (וולש / מזרחי), בהתאם למסורת המשפחה ולמנהג בית הכנסת.</p>
+    </div>
+    <div class="scrolls-grid">
+      <div class="scroll-card">
+        <div class="scroll-img-zone"><div class="img-zone" id="zone-ashk">
+          <input type="file" accept="image/*" onchange="previewImg(this,'zone-ashk')">
+          <div class="zone-icon">📷</div><div class="zone-text">ספר תורה אשכנזי</div><div class="zone-btn">העלאה</div>
+        </div></div>
+        <div class="scroll-body">
+          <span class="scroll-type-badge" data-he="אשכנזי · בית יוסף" data-en="Ashkenazi · Beit Yosef">אשכנזי · בית יוסף</span>
+          <h3 data-he="ספר תורה אשכנזי" data-en="Ashkenazi Torah Scroll">ספר תורה אשכנזי</h3>
+          <p data-he="נכתב בכתב בית יוסף על קלף מובחר, עם אדים ומנחה מדויקים לפי מנהג האשכנזים. מתאים לבתי כנסת אשכנזים בכל העולם." data-en="Written in Beit Yosef script on premium parchment, with precise proportions per Ashkenazi tradition.">נכתב בכתב בית יוסף על קלף מובחר, עם אדים ומנחה מדויקים לפי מנהג האשכנזים. מתאים לבתי כנסת אשכנזים בכל העולם.</p>
+          <div class="scroll-traits"><span class="trait">כתב בית יוסף</span><span class="trait">קלף אשכנזי</span><span class="trait">245 עמודים</span></div>
+        </div>
+      </div>
+      <div class="scroll-card">
+        <div class="scroll-img-zone"><div class="img-zone" id="zone-seph">
+          <input type="file" accept="image/*" onchange="previewImg(this,'zone-seph')">
+          <div class="zone-icon">📷</div><div class="zone-text">ספר תורה ספרדי</div><div class="zone-btn">העלאה</div>
+        </div></div>
+        <div class="scroll-body">
+          <span class="scroll-type-badge" data-he="ספרדי · מזרחי" data-en="Sephardic · Mizrahi">ספרדי · מזרחי</span>
+          <h3 data-he="ספר תורה ספרדי" data-en="Sephardic Torah Scroll">ספר תורה ספרדי</h3>
+          <p data-he="נכתב בכתב וולש על קלף דק ועדין, עם קישוטי הכתב האופייניים למסורת הספרדים ועדות המזרח." data-en="Written in Vellish script on fine parchment, with ornamental lettering characteristic of Sephardic tradition.">נכתב בכתב וולש על קלף דק ועדין, עם קישוטי הכתב האופייניים למסורת הספרדים ועדות המזרח.</p>
+          <div class="scroll-traits"><span class="trait">כתב וולש</span><span class="trait">קלף ספרדי</span><span class="trait">248 עמודים</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="why-section">
+  <div class="why-inner">
+    <div class="why-header">
+      <span class="section-label" data-he="הרקע" data-en="Background">הרקע</span>
+      <h2 class="section-heading" data-he="מדוע ספר תורה?" data-en="Why a Torah Scroll?">מדוע ספר תורה?</h2>
+      <p data-he="אחת מ-613 המצוות — זכות שנשמת הנפטר נהנית ממנה בכל קריאה ציבורית, לנצח." data-en="One of the 613 commandments — a merit that benefits the soul of the departed at every public reading, forever.">אחת מ-613 המצוות — זכות שנשמת הנפטר נהנית ממנה בכל קריאה ציבורית, לנצח.</p>
+    </div>
+    <div class="why-items">
+      <div class="why-item"><div class="why-num">א</div><div>
+        <h3 data-he="מצווה מן התורה" data-en="A Biblical Commandment">מצווה מן התורה</h3>
+        <p data-he="כתיבת ספר תורה היא מצווה עצמאית. תרומה לכתיבה נחשבת כאילו קיים את המצווה בעצמו." data-en="Contributing to writing a Torah scroll is considered as if you fulfilled the mitzvah yourself.">כתיבת ספר תורה היא מצווה עצמאית. תרומה לכתיבה נחשבת כאילו קיים את המצווה בעצמו.</p>
+      </div></div>
+      <div class="why-item"><div class="why-num">ב</div><div>
+        <h3 data-he="זכות לנצח לנשמה" data-en="An Eternal Merit">זכות לנצח לנשמה</h3>
+        <p data-he="בכל פעם שהציבור קורא בספר — בשבת, בחג, בשמחה — הזכות עולה לנשמת הנפטר. זה לא נגמר." data-en="Every time the congregation reads — the merit rises to the departed soul. It never ends.">בכל פעם שהציבור קורא בספר — בשבת, בחג, בשמחה — הזכות עולה לנשמת הנפטר. זה לא נגמר.</p>
+      </div></div>
+      <div class="why-item"><div class="why-num">ג</div><div>
+        <h3 data-he="הנצחת חיילים נופלים" data-en="Honoring Fallen Soldiers">הנצחת חיילים נופלים</h3>
+        <p data-he="מאות משפחות שכולות בחרו בספר תורה כדרך ההנצחה הנעלה ביותר." data-en="Hundreds of bereaved families chose a Torah scroll as the most noble memorial.">מאות משפחות שכולות בחרו בספר תורה כדרך ההנצחה הנעלה ביותר.</p>
+      </div></div>
+      <div class="why-item"><div class="why-num">ד</div><div>
+        <h3 data-he="מתנה חיה לקהילה" data-en="A Living Gift">מתנה חיה לקהילה</h3>
+        <p data-he="הספר ניתן לבית הכנסת שתבחרו ומשמש דורות. שמו של הנפטר מונצח בהקדשה לעולמים." data-en="The scroll is donated to your chosen synagogue. The departed's name is immortalized forever.">הספר ניתן לבית הכנסת שתבחרו ומשמש דורות. שמו של הנפטר מונצח בהקדשה לעולמים.</p>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<section class="occasions-wrap">
+  <div class="occasions-inner">
+    <div class="occasions-head">
+      <span class="section-label" data-he="מטרות" data-en="Occasions">מטרות</span>
+      <h2 class="section-heading" data-he="לאיזה מטרה?" data-en="For What Occasion?">לאיזה מטרה?</h2>
+    </div>
+    <div class="occ-grid">
+      <span class="occ-pill">🪖 הנצחת חייל שנפל</span>
+      <span class="occ-pill">🕯 לעילוי נשמת הורה</span>
+      <span class="occ-pill">❤️ לזכר בן / בת זוג</span>
+      <span class="occ-pill">👶 לרגל לידת בן</span>
+      <span class="occ-pill">💒 לרגל נישואין</span>
+      <span class="occ-pill">🎓 בר / בת מצווה</span>
+      <span class="occ-pill">🏠 חנוכת בית כנסת</span>
+      <span class="occ-pill">📖 סיום מסכת</span>
+      <span class="occ-pill">🌟 יובל / שנה עגולה</span>
+      <span class="occ-pill">🕍 תרומה לקהילה</span>
+    </div>
+  </div>
+</section>
+
+<section class="process-section">
+  <div class="process-inner">
+    <div class="scrolls-header">
+      <span class="section-label" data-he="איך זה עובד" data-en="How It Works">איך זה עובד</span>
+      <h2 class="section-heading" data-he="חמישה שלבים מהרגע הראשון" data-en="Five Steps From Day One">חמישה שלבים מהרגע הראשון</h2>
+    </div>
+    <div class="step-row"><div class="step-circle">א</div><div>
+      <h4 data-he="שיחת ייעוץ חינם" data-en="Free Consultation">שיחת ייעוץ חינם</h4>
+      <p data-he="נדבר על הסיבה לכתיבה, בית הכנסת המיועד, לוח הזמנים ותקציב — בלי התחייבות, בלי לחץ." data-en="We discuss the reason, synagogue, timeline and budget — no commitment, no pressure.">נדבר על הסיבה לכתיבה, בית הכנסת המיועד, לוח הזמנים ותקציב — בלי התחייבות, בלי לחץ.</p>
+    </div></div>
+    <div class="step-row"><div class="step-circle">ב</div><div>
+      <h4 data-he="בחירת מסורת הכתיבה" data-en="Choosing the Tradition">בחירת מסורת הכתיבה</h4>
+      <p data-he="הרב שלומון יכתוב בכתב אשכנזי או ספרדי — בהתאם למסורת המשפחה ובית הכנסת." data-en="Rabbi Shlomon will write in Ashkenazi or Sephardic script — per your family tradition.">הרב שלומון יכתוב בכתב אשכנזי או ספרדי — בהתאם למסורת המשפחה ובית הכנסת.</p>
+    </div></div>
+    <div class="step-row"><div class="step-circle">ג</div><div>
+      <h4 data-he="כתיבה מלווה" data-en="Accompanied Writing">כתיבה מלווה</h4>
+      <p data-he="הכתיבה נמשכת בין חצי שנה לשנה. תקבלו עדכונים שוטפים ואפשרות לבקר את הסופר." data-en="Writing takes 6 months to a year. You will receive updates and may visit the scribe.">הכתיבה נמשכת בין חצי שנה לשנה. תקבלו עדכונים שוטפים ואפשרות לבקר את הסופר.</p>
+    </div></div>
+    <div class="step-row"><div class="step-circle">ד</div><div>
+      <h4 data-he="בדיקת מגיה" data-en="Expert Proofreading">בדיקת מגיה</h4>
+      <p data-he="כל ספר עובר בדיקה קפדנית על ידי מגיה מוסמך — לוודא כשרות מלאה של כל אות." data-en="Every scroll is checked by a certified proofreader to ensure validity of every letter.">כל ספר עובר בדיקה קפדנית על ידי מגיה מוסמך — לוודא כשרות מלאה של כל אות.</p>
+    </div></div>
+    <div class="step-row"><div class="step-circle">ה</div><div>
+      <h4 data-he="הכנסת ספר תורה" data-en="Dedication Ceremony">הכנסת ספר תורה</h4>
+      <p data-he="אירוע הכנסת ספר תורה עם כל המשפחה — שמחה, מוזיקה, ריקוד, ומצווה שלמה לדורות." data-en="A Torah dedication ceremony with the whole family — joy, music, dancing, and a mitzvah for generations.">אירוע הכנסת ספר תורה עם כל המשפחה — שמחה, מוזיקה, ריקוד, ומצווה שלמה לדורות.</p>
+    </div></div>
+  </div>
+</section>
+
+<section class="testimonials-section">
+  <div class="testimonials-inner">
+    <div class="scrolls-header">
+      <span class="section-label" data-he="משפחות שסיפרו" data-en="Families Who Shared">משפחות שסיפרו</span>
+      <h2 class="section-heading" data-he="מילים מהלב" data-en="Words from the Heart">מילים מהלב</h2>
+    </div>
+    <div class="t-grid">
+      <div class="t-card"><div class="t-quote">"</div>
+        <p data-he="בנינו נפל בצוק איתן. הספר קורא בבית הכנסת שלנו כל שבת — ואנחנו מרגישים אותו איתנו." data-en="Our son fell in battle. The scroll is read every Shabbat — and we feel him with us.">בנינו נפל בצוק איתן. הספר קורא בבית הכנסת שלנו כל שבת — ואנחנו מרגישים אותו איתנו.</p>
+        <div class="t-author"><div class="t-avatar">כ</div><div><div class="t-name">משפחת כהן</div><div class="t-loc">נתניה</div></div></div>
+      </div>
+      <div class="t-card"><div class="t-quote">"</div>
+        <p data-he="קנינו חלק בספר תורה לזכר אבא. הסופר הסביר כל שלב. הרגשנו שזו מצווה שבאה מהלב." data-en="We bought a share in memory of our father. The scribe explained every step — a mitzvah from the heart.">קנינו חלק בספר תורה לזכר אבא. הסופר הסביר כל שלב. הרגשנו שזו מצווה שבאה מהלב.</p>
+        <div class="t-author"><div class="t-avatar">י</div><div><div class="t-name">יצחק ואחיותיו</div><div class="t-loc">ירושלים</div></div></div>
+      </div>
+      <div class="t-card"><div class="t-quote">"</div>
+        <p data-he="לרגל חתונתנו רצינו מתנה שתישאר לנצח. כל ילד שיגדל בשכונה שלנו יקרא בספר." data-en="For our wedding we wanted a gift to last forever. Every child who grows up in our neighborhood will read from it.">לרגל חתונתנו רצינו מתנה שתישאר לנצח. כל ילד שיגדל בשכונה שלנו יקרא בספר.</p>
+        <div class="t-author"><div class="t-avatar">ש</div><div><div class="t-name">שמעון ורות</div><div class="t-loc">בני ברק</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>כתר המלך · <a href="tel:+972587707555">058-770-7555</a> · <a href="mailto:AS0548407555@gmail.com">AS0548407555@gmail.com</a></p>
+  <p>© 2026 · כל הזכויות שמורות לOdeyah Abeles</p>
+</footer>
+</body>
+</html>

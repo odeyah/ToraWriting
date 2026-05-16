@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>כתר המלך | אודות</title>
+  <link rel="stylesheet" href="style.css" />
+  <script>
+  var currentLang = 'he';
+  function setLang(lang) {
+    currentLang = lang;
+    var isHe = lang === 'he';
+    document.documentElement.lang = lang;
+    document.documentElement.dir = isHe ? 'rtl' : 'ltr';
+    document.querySelectorAll('.lang-btn').forEach(function(b) {
+      b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+    });
+    document.querySelectorAll('[data-he]').forEach(function(el) {
+      var val = isHe ? el.dataset.he : el.dataset.en;
+      if (val !== undefined) el.textContent = val;
+    });
+  }
+  function toggleMobileMenu() {
+    document.getElementById('mobile-menu').classList.toggle('open');
+    document.getElementById('hamburger').classList.toggle('open');
+  }
+  function closeMobileMenu() {
+    document.getElementById('mobile-menu').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+  }
+  function previewImg(input, zoneId) {
+    var zone = document.getElementById(zoneId);
+    if (!input.files || !input.files[0]) return;
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      zone.querySelectorAll('.zone-icon,.zone-text,.zone-btn').forEach(function(el) { el.style.display='none'; });
+      var img = zone.querySelector('img');
+      if (!img) {
+        img = document.createElement('img');
+        img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;';
+        zone.appendChild(img);
+      }
+      img.src = e.target.result;
+      img.style.display = 'block';
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+  function submitContact(e) {
+    e.preventDefault();
+    var name    = document.getElementById('cf-name').value;
+    var phone   = document.getElementById('cf-phone').value;
+    var service = document.getElementById('cf-service').value;
+    var msg     = document.getElementById('cf-msg').value;
+    var subject = encodeURIComponent('פנייה מהאתר כתר המלך — ' + service);
+    var body    = encodeURIComponent('שם: ' + name + '\nטלפון: ' + phone + '\nשירות: ' + service + '\n\n' + msg);
+    window.location.href = 'mailto:AS0548407555@gmail.com?subject=' + subject + '&body=' + body;
+  }
+</script>
+</head>
+<body><nav>
+  <a href="index.html" class="nav-brand">כתר המלך</a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="nav-link" data-he="בית" data-en="Home">בית</a></li>
+    <li><a href="about.html" class="nav-link active" data-he="אודות" data-en="About">אודות</a></li>
+    <li><a href="sofer.html" class="nav-link" data-he="סופר סת"ם" data-en="Torah Scribe">סופר סת"ם</a></li>
+    <li><a href="parochet.html" class="nav-link" data-he="פרוכות" data-en="Parochet">פרוכות</a></li>
+    <li><a href="hashgacha.html" class="nav-link" data-he="השגחת כשרות" data-en="Kashrut">השגחת כשרות</a></li>
+    <li><a href="contact.html" class="nav-link" data-he="צור קשר" data-en="Contact">צור קשר</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <div class="nav-lang">
+      <button class="lang-btn active" data-lang="he" onclick="setLang('he')">עב</button>
+      <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+    </div>
+    <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html" class="nav-link" data-he="🏠 בית" data-en="🏠 Home">🏠 בית</a>
+  <a href="about.html" class="nav-link" data-he="👤 אודות" data-en="👤 About">👤 אודות</a>
+  <a href="sofer.html" class="nav-link" data-he="📜 סופר סת"ם" data-en="📜 Torah Scribe">📜 סופר סת"ם</a>
+  <a href="parochet.html" class="nav-link" data-he="🕍 פרוכות" data-en="🕍 Parochet">🕍 פרוכות</a>
+  <a href="hashgacha.html" class="nav-link" data-he="✅ השגחת כשרות" data-en="✅ Kashrut">✅ השגחת כשרות</a>
+  <a href="contact.html" class="nav-link" data-he="✉️ צור קשר" data-en="✉️ Contact">✉️ צור קשר</a>
+</div>
+<div class="about-hero">
+  <span class="section-label" data-he="מי אנחנו" data-en="Who We Are">מי אנחנו</span>
+  <h1 data-he="הרב אברהם יעקב שלומון" data-en="Rabbi Avraham Yaakov Shlomon">הרב אברהם יעקב שלומון</h1>
+  <p data-he='סופר סת"ם מוסמך · משגיח כשרות · מומחה פרוכות' data-en="Certified Torah Scribe · Kashrut Supervisor · Parochet Expert">סופר סת"ם מוסמך · משגיח כשרות · מומחה פרוכות</p>
+</div>
+
+<div class="about-bio-section">
+  <div class="about-bio-img">
+    <div class="img-zone" id="about-bio-img" style="height:100%;">
+      <input type="file" accept="image/*" onchange="previewImg(this,'about-bio-img')">
+      <div class="zone-icon">📷</div>
+      <div class="zone-text">תמונת הרב שלומון</div>
+      <div class="zone-btn">העלאת תמונה</div>
+    </div>
+  </div>
+  <div class="about-bio-text">
+    <span class="section-label" data-he="הסיפור שלנו" data-en="Our Story">הסיפור שלנו</span>
+    <h2 class="section-heading" data-he="מסורת, אמונה ומקצועיות" data-en="Tradition, Faith and Professionalism">מסורת, אמונה ומקצועיות</h2>
+    <p data-he="[ביוגרפיה של הרב שלומון — רקע, השכלה, ניסיון]" data-en="[Rabbi Shlomon's biography — background, education, experience]">[ביוגרפיה של הרב שלומון — רקע, השכלה, ניסיון]</p>
+    <p data-he="[פסקה שנייה — ערכים ומה מניע אותו]" data-en="[Second paragraph — values and motivation]">[פסקה שנייה — ערכים ומה מניע אותו]</p>
+    <a href="contact.html" class="btn-gold" data-he="צרו קשר" data-en="Contact Us">צרו קשר</a>
+  </div>
+</div>
+
+<section class="cert-section">
+  <div class="cert-inner">
+    <div class="cert-header">
+      <span class="section-label" data-he="אישורים והסמכות" data-en="Certifications">אישורים והסמכות</span>
+      <h2 class="section-heading" data-he="מוסמך ומאושר" data-en="Certified and Approved">מוסמך ומאושר</h2>
+    </div>
+    <div class="cert-grid">
+      <div class="cert-card">
+        <div class="cert-img-zone"><div class="img-zone" id="cert-1" style="height:320px;">
+          <input type="file" accept="image/*" onchange="previewImg(this,'cert-1')">
+          <div class="zone-icon">📄</div><div class="zone-text">העלאת אישור</div><div class="zone-btn">העלאה</div>
+        </div></div>
+        <div class="cert-label" data-he='הסמכת סופר סת"ם' data-en="Torah Scribe Certification">הסמכת סופר סת"ם</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-img-zone"><div class="img-zone" id="cert-2" style="height:320px;">
+          <input type="file" accept="image/*" onchange="previewImg(this,'cert-2')">
+          <div class="zone-icon">📄</div><div class="zone-text">העלאת אישור</div><div class="zone-btn">העלאה</div>
+        </div></div>
+        <div class="cert-label" data-he="אישור משגיח כשרות" data-en="Kashrut Supervisor Certificate">אישור משגיח כשרות</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-img-zone"><div class="img-zone" id="cert-3" style="height:320px;">
+          <input type="file" accept="image/*" onchange="previewImg(this,'cert-3')">
+          <div class="zone-icon">📄</div><div class="zone-text">העלאת אישור</div><div class="zone-btn">העלאה</div>
+        </div></div>
+        <div class="cert-label" data-he="המלצה מהרבנות" data-en="Rabbinical Recommendation">המלצה מהרבנות</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>כתר המלך · <a href="tel:+972587707555">058-770-7555</a> · <a href="mailto:AS0548407555@gmail.com">AS0548407555@gmail.com</a></p>
+  <p>© 2026 · כל הזכויות שמורות לOdeyah Abeles</p>
+</footer>
+</body>
+</html>
