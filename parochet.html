@@ -6,9 +6,11 @@
   <title>כתר המלך | פרוכות</title>
   <link rel="stylesheet" href="style.css" />
   <script>
-  var currentLang = 'he';
+  var currentLang = localStorage.getItem('lang') || 'he';
+
   function setLang(lang) {
     currentLang = lang;
+    localStorage.setItem('lang', lang);
     var isHe = lang === 'he';
     document.documentElement.lang = lang;
     document.documentElement.dir = isHe ? 'rtl' : 'ltr';
@@ -20,14 +22,17 @@
       if (val !== undefined) el.textContent = val;
     });
   }
+
   function toggleMobileMenu() {
     document.getElementById('mobile-menu').classList.toggle('open');
     document.getElementById('hamburger').classList.toggle('open');
   }
+
   function closeMobileMenu() {
     document.getElementById('mobile-menu').classList.remove('open');
     document.getElementById('hamburger').classList.remove('open');
   }
+
   function previewImg(input, zoneId) {
     var zone = document.getElementById(zoneId);
     if (!input.files || !input.files[0]) return;
@@ -45,14 +50,15 @@
     };
     reader.readAsDataURL(input.files[0]);
   }
+
   function submitContact(e) {
     e.preventDefault();
-    var name    = document.getElementById('cf-name').value;
-    var phone   = document.getElementById('cf-phone').value;
+    var name = document.getElementById('cf-name').value;
+    var phone = document.getElementById('cf-phone').value;
     var service = document.getElementById('cf-service').value;
-    var msg     = document.getElementById('cf-msg').value;
+    var msg = document.getElementById('cf-msg').value;
     var subject = encodeURIComponent('פנייה מהאתר כתר המלך — ' + service);
-    var body    = encodeURIComponent('שם: ' + name + '\nטלפון: ' + phone + '\nשירות: ' + service + '\n\n' + msg);
+    var body = encodeURIComponent('שם: ' + name + '%0Aטלפון: ' + phone + '%0Aשירות: ' + service + '%0A%0A' + msg);
     window.location.href = 'mailto:AS0548407555@gmail.com?subject=' + subject + '&body=' + body;
   }
 </script>
@@ -69,7 +75,7 @@
   </ul>
   <div style="display:flex;align-items:center;gap:12px;">
     <div class="nav-lang">
-      <button class="lang-btn active" data-lang="he" onclick="setLang('he')">עב</button>
+      <button class="lang-btn" data-lang="he" onclick="setLang('he')">עב</button>
       <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
     </div>
     <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
@@ -161,5 +167,6 @@
   <p>כתר המלך · <a href="tel:+972587707555">058-770-7555</a> · <a href="mailto:AS0548407555@gmail.com">AS0548407555@gmail.com</a></p>
   <p>© 2026 · כל הזכויות שמורות לOdeyah Abeles</p>
 </footer>
+<script>setLang(currentLang);</script>
 </body>
 </html>
