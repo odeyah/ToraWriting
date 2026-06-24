@@ -61,11 +61,21 @@
     var body = encodeURIComponent('שם: ' + name + '%0Aטלפון: ' + phone + '%0Aשירות: ' + service + '%0A%0A' + msg);
     window.location.href = 'mailto:AS0548407555@gmail.com?subject=' + subject + '&body=' + body;
   }
+	function openLightbox(src) {
+		var overlay = document.getElementById('lightbox-overlay');
+		var img = document.getElementById('lightbox-img');
+		img.src = src;
+		overlay.classList.add('open');
+	}
+
+  function closeLightbox() {
+		document.getElementById('lightbox-overlay').classList.remove('open');
+	}
 </script>
 </head>
 <body><nav>
   <a href="index.html" class="nav-brand">
-    <img src="images/logo.png" alt="כתר המלך" style="height:48px;width:auto;display:block;">
+    <img src="images/logo.png" alt="כתר המלך" onclick="openLightbox(this.src)" style="height:48px;width:auto;display:block;">
   </a>
   <ul class="nav-links">
     <li><a href="index.html" class="nav-link" data-he="בית" data-en="Home">בית</a></li>
@@ -152,19 +162,19 @@
     <div class="cert-grid">
       <div class="cert-card">
         <div class="cert-img-zone">
-          <img src="images/hashgacha/cashrotSertificate.jpeg" alt="תעודת משגיח מהרבנות" style="width:100%;height:320px;object-fit:cover;" loading="lazy">
+          <img src="images/hashgacha/cashrotSertificate.jpeg" alt="תעודת משגיח מהרבנות" onclick="openLightbox(this.src)" style="width:100%;height:320px;object-fit:cover;" loading="lazy">
         </div>
         <div class="cert-label" data-he="תעודת משגיח מהרבנות" data-en="Rabbinical Supervisor Certificate">תעודת משגיח מהרבנות</div>
       </div>
       <div class="cert-card">
         <div class="cert-img-zone">
-          <img src="images/hashgacha/cashrotRecomand.jpeg" alt="המלצה על ניסיון בהשגחת כשרות" style="width:100%;height:320px;object-fit:cover;" loading="lazy">
+          <img src="images/hashgacha/cashrotRecomand.jpeg" alt="המלצה על ניסיון בהשגחת כשרות" onclick="openLightbox(this.src)" style="width:100%;height:320px;object-fit:cover;" loading="lazy">
         </div>
         <div class="cert-label" data-he="המלצה — חלבי, בשרי ומהדרין" data-en="Recommendation — Dairy, Meat & Mehadrin">המלצה — חלבי, בשרי ומהדרין</div>
       </div>
       <div class="cert-card">
         <div class="cert-img-zone">
-          <img src="images/hashgacha/cashrot.jpeg" alt="תעודת הוקרה ממערך הכשרות" style="width:100%;height:320px;object-fit:cover;" loading="lazy">
+          <img src="images/hashgacha/cashrot.jpeg" alt="תעודת הוקרה ממערך הכשרות" onclick="openLightbox(this.src)" style="width:100%;height:320px;object-fit:cover;" loading="lazy">
         </div>
         <div class="cert-label" data-he="הוקרה — רבנות בית הספר החיילי לשוטרים" data-en="Recognition — Military Police School Rabbinate">הוקרה — רבנות בית הספר החיילי לשוטרים</div>
       </div>
@@ -200,6 +210,10 @@
   <p>© 2026 · כל הזכויות שמורות לOdeyah Abeles</p>
 </footer>
 <script>setLang(currentLang);</script>
+<div class="lightbox-overlay" id="lightbox-overlay" onclick="closeLightbox()">
+  <span class="lightbox-close">&times;</span>
+  <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()">
+</div>
 </body>
 </html>
 
