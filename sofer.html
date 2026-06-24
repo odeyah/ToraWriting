@@ -61,11 +61,21 @@
     var body = encodeURIComponent('שם: ' + name + '%0Aטלפון: ' + phone + '%0Aשירות: ' + service + '%0A%0A' + msg);
     window.location.href = 'mailto:AS0548407555@gmail.com?subject=' + subject + '&body=' + body;
   }
+  function openLightbox(src) {
+		var overlay = document.getElementById('lightbox-overlay');
+		var img = document.getElementById('lightbox-img');
+		img.src = src;
+		overlay.classList.add('open');
+	}
+
+	function closeLightbox() {
+		document.getElementById('lightbox-overlay').classList.remove('open');
+	}
 </script>
 </head>
 <body><nav>
   <a href="index.html" class="nav-brand">
-    <img src="images/logo.png" alt="כתר המלך" style="height:48px;width:auto;display:block;">
+    <img src="images/logo.png" alt="כתר המלך" onclick="openLightbox(this.src)" style="height:48px;width:auto;display:block;">
   </a>
   <ul class="nav-links">
     <li><a href="index.html" class="nav-link" data-he="בית" data-en="Home">בית</a></li>
@@ -263,6 +273,10 @@
   <p>© 2026 · כל הזכויות שמורות לOdeyah Abeles</p>
 </footer>
 <script>setLang(currentLang);</script>
+<div class="lightbox-overlay" id="lightbox-overlay" onclick="closeLightbox()">
+      <span class="lightbox-close">&times;</span>
+      <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()">
+    </div>
 </body>
 </html>
 
