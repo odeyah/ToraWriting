@@ -1,178 +1,280 @@
 <!doctype html>
 <html lang="he" dir="rtl">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>כתר המלך | פרוכות</title>
-  <link rel="stylesheet" href="style.css" />
-  <script>
-  var currentLang = localStorage.getItem('lang') || 'he';
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>כתר המלך | פרוכות</title>
+		<link rel="stylesheet" href="style.css" />
+		<script>
+			var currentLang = localStorage.getItem('lang') || 'he';
 
-  function setLang(lang) {
-    currentLang = lang;
-    localStorage.setItem('lang', lang);
-    var isHe = lang === 'he';
-    document.documentElement.lang = lang;
-    document.documentElement.dir = isHe ? 'rtl' : 'ltr';
-    document.querySelectorAll('.lang-btn').forEach(function(b) {
-      b.classList.toggle('active', b.getAttribute('data-lang') === lang);
-    });
-    document.querySelectorAll('[data-he]').forEach(function(el) {
-      var val = isHe ? el.dataset.he : el.dataset.en;
-      if (val !== undefined) el.textContent = val;
-    });
-  }
+			function setLang(lang) {
+				currentLang = lang;
+				localStorage.setItem('lang', lang);
+				var isHe = lang === 'he';
+				document.documentElement.lang = lang;
+				document.documentElement.dir = isHe ? 'rtl' : 'ltr';
+				document.querySelectorAll('.lang-btn').forEach(function (b) {
+					b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+				});
+				document.querySelectorAll('[data-he]').forEach(function (el) {
+					var val = isHe ? el.dataset.he : el.dataset.en;
+					if (val !== undefined) el.textContent = val;
+				});
+			}
 
-  function toggleMobileMenu() {
-    document.getElementById('mobile-menu').classList.toggle('open');
-    document.getElementById('hamburger').classList.toggle('open');
-  }
+			function toggleMobileMenu() {
+				document.getElementById('mobile-menu').classList.toggle('open');
+				document.getElementById('hamburger').classList.toggle('open');
+			}
 
-  function closeMobileMenu() {
-    document.getElementById('mobile-menu').classList.remove('open');
-    document.getElementById('hamburger').classList.remove('open');
-  }
+			function closeMobileMenu() {
+				document.getElementById('mobile-menu').classList.remove('open');
+				document.getElementById('hamburger').classList.remove('open');
+			}
 
-  function previewImg(input, zoneId) {
-    var zone = document.getElementById(zoneId);
-    if (!input.files || !input.files[0]) return;
-    var reader = new FileReader();
-    reader.onload = function(e) {
-      zone.querySelectorAll('.zone-icon,.zone-text,.zone-btn').forEach(function(el) { el.style.display='none'; });
-      var img = zone.querySelector('img');
-      if (!img) {
-        img = document.createElement('img');
-        img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;';
-        zone.appendChild(img);
-      }
-      img.src = e.target.result;
-      img.style.display = 'block';
-    };
-    reader.readAsDataURL(input.files[0]);
-  }
+			function previewImg(input, zoneId) {
+				var zone = document.getElementById(zoneId);
+				if (!input.files || !input.files[0]) return;
+				var reader = new FileReader();
+				reader.onload = function (e) {
+					zone.querySelectorAll('.zone-icon,.zone-text,.zone-btn').forEach(function (el) {
+						el.style.display = 'none';
+					});
+					var img = zone.querySelector('img');
+					if (!img) {
+						img = document.createElement('img');
+						img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;';
+						zone.appendChild(img);
+					}
+					img.src = e.target.result;
+					img.style.display = 'block';
+				};
+				reader.readAsDataURL(input.files[0]);
+			}
 
-  function submitContact(e) {
-    e.preventDefault();
-    var name = document.getElementById('cf-name').value;
-    var phone = document.getElementById('cf-phone').value;
-    var service = document.getElementById('cf-service').value;
-    var msg = document.getElementById('cf-msg').value;
-    var subject = encodeURIComponent('פנייה מהאתר כתר המלך — ' + service);
-    var body = encodeURIComponent('שם: ' + name + '%0Aטלפון: ' + phone + '%0Aשירות: ' + service + '%0A%0A' + msg);
-    window.location.href = 'mailto:AS0548407555@gmail.com?subject=' + subject + '&body=' + body;
-  }
-</script>
-</head>
-<body><nav>
-  <a href="index.html" class="nav-brand">
-    <img src="images/logo.png" alt="כתר המלך" style="height:48px;width:auto;display:block;">
-  </a>
-  <ul class="nav-links">
-    <li><a href="index.html" class="nav-link" data-he="בית" data-en="Home">בית</a></li>
-    <li><a href="about.html" class="nav-link" data-he="אודות" data-en="About">אודות</a></li>
-    <li><a href="sofer.html" class="nav-link" data-he="סת''ם" data-en="Torah Scribe">סת"ם</a></li>
-    <li><a href="parochet.html" class="nav-link active" data-he="פרוכות" data-en="Parochet">פרוכות</a></li>
-    <li><a href="hashgacha.html" class="nav-link" data-he="השגחת כשרות" data-en="Kashrut">השגחת כשרות</a></li>
-    <li><a href="contact.html" class="nav-link" data-he="צור קשר" data-en="Contact">צור קשר</a></li>
-  </ul>
-  <div style="display:flex;align-items:center;gap:12px;">
-    <div class="nav-lang">
-      <button class="lang-btn" data-lang="he" onclick="setLang('he')">עב</button>
-      <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
-    </div>
-    <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
-<div class="mobile-menu" id="mobile-menu">
-  <a href="index.html" class="nav-link" data-he="🏠 בית" data-en="🏠 Home">🏠 בית</a>
-  <a href="about.html" class="nav-link" data-he="👤 אודות" data-en="👤 About">👤 אודות</a>
-  <a href="sofer.html" class="nav-link" data-he="📜 סופר סת"ם" data-en="📜 Torah Scribe">📜 סופר סת"ם</a>
-  <a href="parochet.html" class="nav-link" data-he="🕍 פרוכות" data-en="🕍 Parochet">🕍 פרוכות</a>
-  <a href="hashgacha.html" class="nav-link" data-he="✅ השגחת כשרות" data-en="✅ Kashrut">✅ השגחת כשרות</a>
-  <a href="contact.html" class="nav-link" data-he="✉️ צור קשר" data-en="✉️ Contact">✉️ צור קשר</a>
-</div>
-<div class="hero-dark">
-  <div class="hero-bg-word" style="font-size:clamp(140px,24vw,320px);">פ</div>
-  <div class="hero-content">
-    <div class="hero-eyebrow" data-he="כתר המלך | פרוכות" data-en="Keter HaMelech | Parochet">כתר המלך | פרוכות</div>
-    <h1>
-      <span data-he="פרוכות מהודרות" data-en="Magnificent Parochet">פרוכות מהודרות</span>
-      <em data-he="לכל ארון קודש" data-en="For Every Aron Kodesh">לכל ארון קודש</em>
-    </h1>
-    <p class="hero-desc" data-he="פרוכות ממפעל מוביל — מגוון עיצובים, בדים וצבעים. ליווי אישי בבחירה ובהתאמה לבית הכנסת שלכם." data-en="Parochet from a leading manufacturer — variety of designs, fabrics and colors. Personal guidance throughout.">פרוכות ממפעל מוביל — מגוון עיצובים, בדים וצבעים. ליווי אישי בבחירה ובהתאמה לבית הכנסת שלכם.</p>
-    <div class="hero-btns">
-      <a href="contact.html" class="btn-gold" data-he="לפרטים ומחירים" data-en="Details & Pricing">לפרטים ומחירים</a>
-    </div>
-  </div>
-  <div class="hero-img-side">
-    <div class="img-zone" id="parochet-hero-img" style="height:100%;background:#160e04;">
-      <input type="file" accept="image/*" onchange="previewImg(this,'parochet-hero-img')">
-      <div class="zone-icon" style="color:rgba(180,120,40,0.4);">🕍</div>
-      <div class="zone-text" style="color:rgba(180,120,40,0.45);">תמונת פרוכת</div>
-      <div class="zone-btn">העלאת תמונה</div>
-    </div>
-  </div>
-</div>
+			function submitContact(e) {
+				e.preventDefault();
+				var name = document.getElementById('cf-name').value;
+				var phone = document.getElementById('cf-phone').value;
+				var service = document.getElementById('cf-service').value;
+				var msg = document.getElementById('cf-msg').value;
+				var subject = encodeURIComponent('פנייה מהאתר כתר המלך — ' + service);
+				var body = encodeURIComponent('שם: ' + name + '%0Aטלפון: ' + phone + '%0Aשירות: ' + service + '%0A%0A' + msg);
+				window.location.href = 'mailto:AS0548407555@gmail.com?subject=' + subject + '&body=' + body;
+			}
+		</script>
+		<style>
+			.nav-brand img {
+				filter: brightness(1.1);
+			}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="index.html" class="nav-brand">
+				<img src="images/logo.png" alt="כתר המלך" style="height: 48px; width: auto; display: block" />
+			</a>
+			<ul class="nav-links">
+				<li><a href="index.html" class="nav-link" data-he="בית" data-en="Home">בית</a></li>
+				<li><a href="about.html" class="nav-link" data-he="אודות" data-en="About">אודות</a></li>
+				<li><a href="sofer.html" class="nav-link" data-he='סת"ם' data-en="Torah Scribe">סת"ם</a></li>
+				<li><a href="parochet.html" class="nav-link active" data-he="פרוכות" data-en="Parochet">פרוכות</a></li>
+				<li><a href="hashgacha.html" class="nav-link" data-he="השגחת כשרות" data-en="Kashrut">השגחת כשרות</a></li>
+				<li><a href="contact.html" class="nav-link" data-he="צור קשר" data-en="Contact">צור קשר</a></li>
+			</ul>
+			<div style="display: flex; align-items: center; gap: 12px">
+				<div class="nav-lang">
+					<button class="lang-btn" data-lang="he" onclick="setLang('he')">עב</button>
+					<button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+				</div>
+				<button class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+					<span></span><span></span><span></span>
+				</button>
+			</div>
+		</nav>
+		<div class="mobile-menu" id="mobile-menu">
+			<a href="index.html" class="nav-link" data-he="🏠 בית" data-en="🏠 Home">🏠 בית</a>
+			<a href="about.html" class="nav-link" data-he="👤 אודות" data-en="👤 About">👤 אודות</a>
+			<a href="sofer.html" class="nav-link" data-he='📜 סופר סת"ם' data-en="📜 Torah Scribe">📜 סופר סת"ם</a>
+			<a href="parochet.html" class="nav-link" data-he="🕍 פרוכות" data-en="🕍 Parochet">🕍 פרוכות</a>
+			<a href="hashgacha.html" class="nav-link" data-he="✅ השגחת כשרות" data-en="✅ Kashrut">✅ השגחת כשרות</a>
+			<a href="contact.html" class="nav-link" data-he="✉️ צור קשר" data-en="✉️ Contact">✉️ צור קשר</a>
+		</div>
+		<div class="hero-dark">
+			<div class="hero-bg-word" style="font-size: clamp(140px, 24vw, 320px)">פ</div>
+			<div class="hero-content">
+				<div class="hero-eyebrow" data-he="כתר המלך | פרוכות" data-en="Keter HaMelech | Parochet">כתר המלך | פרוכות</div>
+				<h1>
+					<span data-he="פרוכות מהודרות" data-en="Magnificent Parochet">פרוכות מהודרות</span>
+					<em data-he="לכל ארון קודש" data-en="For Every Aron Kodesh">לכל ארון קודש</em>
+				</h1>
+				<p
+					class="hero-desc"
+					data-he="פרוכות ממפעל מוביל — מגוון עיצובים, בדים וצבעים. ליווי אישי בבחירה ובהתאמה לבית הכנסת שלכם."
+					data-en="Parochet from a leading manufacturer — variety of designs, fabrics and colors. Personal guidance throughout."
+				>
+					פרוכות ממפעל מוביל — מגוון עיצובים, בדים וצבעים. ליווי אישי בבחירה ובהתאמה לבית הכנסת שלכם.
+				</p>
+				<div class="hero-btns">
+					<a href="contact.html" class="btn-gold" data-he="לפרטים ומחירים" data-en="Details & Pricing">לפרטים ומחירים</a>
+				</div>
+			</div>
+			<div class="hero-img-side">
+				<img
+					src="images/parochet/design1.png"
+					alt="פרוכת מהודרת בעיצוב בית המקדש"
+					style="width: 100%; height: 100%; object-fit: cover"
+					loading="lazy"
+				/>
+			</div>
+		</div>
 
-<section class="parochet-intro">
-  <div class="parochet-intro-inner">
-    <span class="section-label" data-he="אודות השירות" data-en="About the Service">אודות השירות</span>
-    <h2 class="section-heading" data-he="פרוכות ישירות מהמפעל" data-en="Parochet Direct from the Factory">פרוכות ישירות מהמפעל</h2>
-    <p data-he="הרב שלומון הוא סוכן מורשה של מפעל פרוכות מוביל. כל פרוכת נבחרת בקפידה ומותאמת לגודל ולעיצוב של ארון הקודש שלכם. ליווי אישי לאורך כל הדרך — מהבחירה ועד להתקנה." data-en="Rabbi Shlomon is an authorized agent of a leading parochet manufacturer. Each parochet is carefully selected and tailored to your ark's dimensions and design.">הרב שלומון הוא סוכן מורשה של מפעל פרוכות מוביל. כל פרוכת נבחרת בקפידה ומותאמת לגודל ולעיצוב של ארון הקודש שלכם. ליווי אישי לאורך כל הדרך — מהבחירה ועד להתקנה.</p>
-  </div>
-</section>
+		<section class="parochet-intro">
+			<div class="parochet-intro-inner">
+				<span class="section-label" data-he="אודות השירות" data-en="About the Service">אודות השירות</span>
+				<h2 class="section-heading" data-he="פרוכות ישירות מהמפעל" data-en="Parochet Direct from the Factory">
+					פרוכות ישירות מהמפעל
+				</h2>
+				<p
+					data-he="הרב שלומון הוא סוכן מורשה של מפעל פרוכות מוביל. כל פרוכת נבחרת בקפידה ומותאמת לגודל ולעיצוב של ארון הקודש שלכם. ליווי אישי לאורך כל הדרך — מהבחירה ועד להתקנה."
+					data-en="Rabbi Shlomon is an authorized agent of a leading parochet manufacturer. Each parochet is carefully selected and tailored to your ark's dimensions and design."
+				>
+					הרב שלומון הוא סוכן מורשה של מפעל פרוכות מוביל. כל פרוכת נבחרת בקפידה ומותאמת לגודל ולעיצוב של ארון הקודש שלכם.
+					ליווי אישי לאורך כל הדרך — מהבחירה ועד להתקנה.
+				</p>
+			</div>
+		</section>
 
-<section class="parochet-gallery">
-  <div class="parochet-gallery-inner">
-    <div class="scrolls-header">
-      <span class="section-label" data-he="גלריה" data-en="Gallery">גלריה</span>
-      <h2 class="section-heading" data-he="מבחר פרוכות" data-en="Selection of Parochet">מבחר פרוכות</h2>
-    </div>
-    <div class="gallery-grid">
-      <div class="gallery-item"><div class="gallery-img-zone"><div class="img-zone" id="par-1">
-        <input type="file" accept="image/*" onchange="previewImg(this,'par-1')">
-        <div class="zone-icon">📷</div><div class="zone-text">פרוכת 1</div><div class="zone-btn">העלאה</div>
-      </div></div><div class="gallery-label">[שם / תיאור]</div></div>
-      <div class="gallery-item"><div class="gallery-img-zone"><div class="img-zone" id="par-2">
-        <input type="file" accept="image/*" onchange="previewImg(this,'par-2')">
-        <div class="zone-icon">📷</div><div class="zone-text">פרוכת 2</div><div class="zone-btn">העלאה</div>
-      </div></div><div class="gallery-label">[שם / תיאור]</div></div>
-      <div class="gallery-item"><div class="gallery-img-zone"><div class="img-zone" id="par-3">
-        <input type="file" accept="image/*" onchange="previewImg(this,'par-3')">
-        <div class="zone-icon">📷</div><div class="zone-text">פרוכת 3</div><div class="zone-btn">העלאה</div>
-      </div></div><div class="gallery-label">[שם / תיאור]</div></div>
-      <div class="gallery-item"><div class="gallery-img-zone"><div class="img-zone" id="par-4">
-        <input type="file" accept="image/*" onchange="previewImg(this,'par-4')">
-        <div class="zone-icon">📷</div><div class="zone-text">פרוכת 4</div><div class="zone-btn">העלאה</div>
-      </div></div><div class="gallery-label">[שם / תיאור]</div></div>
-      <div class="gallery-item"><div class="gallery-img-zone"><div class="img-zone" id="par-5">
-        <input type="file" accept="image/*" onchange="previewImg(this,'par-5')">
-        <div class="zone-icon">📷</div><div class="zone-text">פרוכת 5</div><div class="zone-btn">העלאה</div>
-      </div></div><div class="gallery-label">[שם / תיאור]</div></div>
-      <div class="gallery-item"><div class="gallery-img-zone"><div class="img-zone" id="par-6">
-        <input type="file" accept="image/*" onchange="previewImg(this,'par-6')">
-        <div class="zone-icon">📷</div><div class="zone-text">פרוכת 6</div><div class="zone-btn">העלאה</div>
-      </div></div><div class="gallery-label">[שם / תיאור]</div></div>
-    </div>
-  </div>
-</section>
+		<section class="parochet-gallery">
+			<div class="parochet-gallery-inner">
+				<div class="scrolls-header">
+					<span class="section-label" data-he="גלריה" data-en="Gallery">גלריה</span>
+					<h2 class="section-heading" data-he="מבחר פרוכות" data-en="Selection of Parochet">מבחר פרוכות</h2>
+				</div>
+				<div class="gallery-grid">
+					<div class="gallery-item">
+						<div class="gallery-img-zone">
+							<img
+								src="images/parochet/design1.png"
+								alt="פרוכת בעיצוב בית המקדש - לבן וזהב"
+								style="width: 100%; height: 280px; object-fit: cover"
+								loading="lazy"
+							/>
+						</div>
+						<div class="gallery-label" data-he="עיצוב בית המקדש — לבן וזהב" data-en="Temple Design — White & Gold">
+							עיצוב בית המקדש — לבן וזהב
+						</div>
+					</div>
+					<div class="gallery-item">
+						<div class="gallery-img-zone">
+							<img
+								src="images/parochet/design2.png"
+								alt="פרוכת בעיצוב בית המקדש - כחול וזהב"
+								style="width: 100%; height: 280px; object-fit: cover"
+								loading="lazy"
+							/>
+						</div>
+						<div class="gallery-label" data-he="עיצוב בית המקדש — כחול וזהב" data-en="Temple Design — Navy & Gold">
+							עיצוב בית המקדש — כחול וזהב
+						</div>
+					</div>
+					<div class="gallery-item">
+						<div class="gallery-img-zone">
+							<img
+								src="images/parochet/belza.png"
+								alt="פרוכת בעלזא"
+								style="width: 100%; height: 280px; object-fit: cover"
+								loading="lazy"
+							/>
+						</div>
+						<div class="gallery-label" data-he="עיצוב בעלזא" data-en="Belz Design">עיצוב בעלזא</div>
+					</div>
+					<div class="gallery-item">
+						<div class="gallery-img-zone">
+							<img
+								src="images/parochet/vilna-kotel.png"
+								alt="שער וולנא בכותל"
+								style="width: 100%; height: 280px; object-fit: cover"
+								loading="lazy"
+							/>
+						</div>
+						<div class="gallery-label" data-he="שער וולנא בכותל" data-en="Vilna Gate at the Kotel">שער וולנא בכותל</div>
+					</div>
+					<div class="gallery-item">
+						<div class="gallery-img-zone">
+							<img
+								src="images/parochet/keshet.png"
+								alt="קשת מעוטרת"
+								style="width: 100%; height: 280px; object-fit: cover"
+								loading="lazy"
+							/>
+						</div>
+						<div class="gallery-label" data-he="קשת מעוטרת" data-en="Decorated Arch">קשת מעוטרת</div>
+					</div>
+				</div>
+			</div>
+		</section>
 
-<div class="dark-cta">
-  <h2 data-he="מעוניינים בפרוכת לבית הכנסת?" data-en="Interested in a Parochet?">מעוניינים בפרוכת לבית הכנסת?</h2>
-  <p data-he="צרו קשר לקבלת קטלוג, מחירים וייעוץ אישי" data-en="Contact us for catalog, pricing and personal advice">צרו קשר לקבלת קטלוג, מחירים וייעוץ אישי</p>
-  <a href="contact.html" class="btn-gold" data-he="לפרטים ומחירים" data-en="Details & Pricing">לפרטים ומחירים</a>
-</div>
+		<section class="parochet-gallery" style="background: var(--cream); border-top: 1px solid var(--parch3)">
+			<div class="parochet-gallery-inner">
+				<div class="scrolls-header">
+					<span class="section-label" data-he="בשטח" data-en="In the Field">בשטח</span>
+					<h2 class="section-heading" data-he="פרוכות בהתקנה אמיתית" data-en="Parochet in Real Installations">
+						פרוכות בהתקנה אמיתית
+					</h2>
+				</div>
+				<div class="gallery-grid">
+					<div class="gallery-item">
+						<video
+							src="images/parochet/parochet.mp4"
+							controls
+							preload="metadata"
+							style="width: 100%; height: 280px; object-fit: cover; background: #000"
+						></video>
+						<div class="gallery-label" data-he="פרוכת מהודרת" data-en="Magnificent Parochet">פרוכת מהודרת</div>
+					</div>
+					<div class="gallery-item">
+						<video
+							src="images/parochet/kotel1.mp4"
+							controls
+							preload="metadata"
+							style="width: 100%; height: 280px; object-fit: cover; background: #000"
+						></video>
+						<div class="gallery-label" data-he="התקנה בכותל המערבי" data-en="Installation at the Western Wall">
+							התקנה בכותל המערבי
+						</div>
+					</div>
+					<div class="gallery-item">
+						<video
+							src="images/parochet/kotel2.mp4"
+							controls
+							preload="metadata"
+							style="width: 100%; height: 280px; object-fit: cover; background: #000"
+						></video>
+						<div class="gallery-label" data-he="הכותל — מבט נוסף" data-en="The Wall — Another View">הכותל — מבט נוסף</div>
+					</div>
+				</div>
+			</div>
+		</section>
 
-<footer>
-  <p>כתר המלך · <a href="tel:+972587707552">058-770-7552</a> · <a href="mailto:AS0548407555@gmail.com">AS0548407555@gmail.com</a></p>
-  <p>© 2026 · כל הזכויות שמורות לOdeyah Abeles</p>
-</footer>
-<script>setLang(currentLang);</script>
-</body>
+		<div class="dark-cta">
+			<h2 data-he="מעוניינים בפרוכת לבית הכנסת?" data-en="Interested in a Parochet?">מעוניינים בפרוכת לבית הכנסת?</h2>
+			<p data-he="צרו קשר לקבלת קטלוג, מחירים וייעוץ אישי" data-en="Contact us for catalog, pricing and personal advice">
+				צרו קשר לקבלת קטלוג, מחירים וייעוץ אישי
+			</p>
+			<a href="contact.html" class="btn-gold" data-he="לפרטים ומחירים" data-en="Details & Pricing">לפרטים ומחירים</a>
+		</div>
+
+		<footer>
+			<p>
+				כתר המלך · <a href="tel:+972587707552">058-770-7552</a> ·
+				<a href="mailto:AS0548407555@gmail.com">AS0548407555@gmail.com</a>
+			</p>
+			<p>© 2026 · כל הזכויות שמורות לOdeyah Abeles</p>
+		</footer>
+		<script>
+			setLang(currentLang);
+		</script>
+	</body>
 </html>
-
-<style>
-  .nav-brand img { filter: brightness(1.1); }
-</style>
