@@ -12,7 +12,8 @@
 		const isParochetPage = currentPage.includes('parochet.html');
 
 		const phoneNumber = isParochetPage ? '0544451906' : '0587707552';
-		const message = encodeURIComponent('שלום, אני רוצה למצוא עוד מידע');
+		const messageText = isParochetPage ? 'הגעתי אלייכם דרך כתר המלך אשמח לקבל מידע' : 'שלום, אני רוצה למצוא עוד מידע';
+		const message = encodeURIComponent(messageText);
 
 		// Format phone number for WhatsApp (with country code)
 		const whatsappPhone = phoneNumber.replace(/^0/, '972');
