@@ -19,7 +19,7 @@
 			messageText =
 				currentLangValue === 'en'
 					? 'I found you through Keter HaMelech, I would like to get more information'
-					: 'הגעתי אלייכם דרך כתר המלך אשמח לקבל מידע';
+					: 'הגעתי אליכם דרך כתר המלך אשמח לקבל מידע';
 		} else {
 			messageText =
 				currentLangValue === 'en' ? 'Hello, I would like to find out more information' : 'שלום, אני רוצה למצוא עוד מידע';
